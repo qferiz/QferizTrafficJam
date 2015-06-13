@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Teal -->
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="colorPrimaryLight">#B2DFDB</color>
+    <color name="colorAccent">#FFC107</color>
+    <color name="colorHighlight">#B3E5FC</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="colorDivider">#B6B6B6</color>
+    <color name="colorAnimateSwipe1">#4CAF50</color>
+    <color name="colorAnimateSwipe2">#FFC107</color>
+
+    <drawable name="pressed_row">#B3E5FC</drawable>
+    <drawable name="selected_row">#B6B6B6</drawable>
+</resources>
