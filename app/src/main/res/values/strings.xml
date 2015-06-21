@@ -7,11 +7,27 @@
     <string name="username">Rizki Yuniardi</string>
     <string name="email_username">rizki.feriz@gmail.com</string>
     <string name="greeting">Hii...</string>
-    <string name="nav_notification">Notification</string>
+    <string name="nav_info">Info</string>
     <string name="nav_request">Request</string>
     <string name="nav_sending">Send</string>
     <string name="nav_maps">Maps</string>
     <string name="category">Category</string>
     <string name="nav_setting">Setting</string>
-    <string name="nav_info">About</string>
+    <string name="nav_about">About</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_activity_info_traffic_detail">ActivityInfoTrafficDetail</string>
+    <string name="info_traffic">Lalu Lintas di Jalan Panglima Sudirman Surabaya Kondisi Ramai Lancar.
+        Harap utamakan keselamatan. Utamakan Safety Riding. Patuhi rambu-rambu lalu lintas. Happy Nice Day</string>
+    <string name="text_send">Fragment Send Info</string>
+    <string name="text_request">Fragment Request Info</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="title_activity_activity_maps">Maps</string>
+    <string name="title_activity_activity_about">About</string>
+    <string name="title_info">Info</string>
+    <string name="title_kondisi">Kondisi</string>
+    <string name="title_keterangan">Keterangan</string>
+    <string name="subtitle_info_ket">Waktu : </string>
+    <string name="subtitle_info_maps_ket">Lokasi :</string>
 </resources>

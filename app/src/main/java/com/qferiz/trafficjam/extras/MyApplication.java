@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.qferiz.trafficjam.database.TrafficJamDB;
+
 /**
  * Created by Qferiz on 13-06-2015.
  */
 public class MyApplication extends Application {
     private static MyApplication sInstance;
-//    private static MoviesDatabase mDatabase;
+    private static TrafficJamDB mDatabase;
 
 
     public static MyApplication getInstance(){
@@ -23,20 +25,18 @@ public class MyApplication extends Application {
         return sInstance.getApplicationContext();
     }
 
-/*
-    public synchronized static MoviesDatabase getWritableDatabase(){
+    public synchronized static TrafficJamDB getWritableDatabase() {
         if (mDatabase == null){
-            mDatabase = new MoviesDatabase(getAppContext());
+            mDatabase = new TrafficJamDB(getAppContext());
         }
         return mDatabase;
     }
-*/
 
     @Override
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-//        mDatabase = new MoviesDatabase(this);
+        mDatabase = new TrafficJamDB(this);
     }
 
     public static void saveToPreferences(Context context, String preferenceName, String preferenceValue) {

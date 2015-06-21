@@ -8,24 +8,26 @@ import android.os.Parcelable;
  */
 public class TrafficJam implements Parcelable {
 
-    private String id_info_lokasi;
+    private int id_info_lokasi;
     private String nohp;
     private String longitude;
     private String latittude;
-    private String id_jalan;
-    private String id_wilayah;
-    private String id_kondisi_jalan;
+    private String nama_jalan;
+    private String nama_wilayah;
+    private String kondisi;
+    //    private Date waktu;
     private String waktu;
     private String nama_file_foto;
     private String lokasi_file_foto;
 
-    public TrafficJam(String id_info_lokasi,
+    public TrafficJam(int id_info_lokasi,
                       String nohp,
                       String longitude,
                       String latittude,
-                      String id_jalan,
-                      String id_wilayah,
-                      String id_kondisi_jalan,
+                      String nama_jalan,
+                      String nama_wilayah,
+                      String kondisi,
+//                      Date waktu,
                       String waktu,
                       String nama_file_foto,
                       String lokasi_file_foto) {
@@ -34,9 +36,9 @@ public class TrafficJam implements Parcelable {
         this.nohp = nohp;
         this.longitude = longitude;
         this.latittude = latittude;
-        this.id_jalan = id_jalan;
-        this.id_wilayah = id_wilayah;
-        this.id_kondisi_jalan = id_kondisi_jalan;
+        this.nama_jalan = nama_jalan;
+        this.nama_wilayah = nama_wilayah;
+        this.kondisi = kondisi;
         this.waktu = waktu;
         this.nama_file_foto = nama_file_foto;
         this.lokasi_file_foto = lokasi_file_foto;
@@ -44,37 +46,39 @@ public class TrafficJam implements Parcelable {
     }
 
     public TrafficJam() {
-        super();
-        this.id_info_lokasi = "";
-        this.nohp = "";
-        this.longitude = "";
-        this.latittude = "";
-        this.id_jalan = "";
-        this.id_wilayah = "";
-        this.id_kondisi_jalan = "";
-        this.waktu = "";
-        this.nama_file_foto = "";
-        this.lokasi_file_foto = "";
+//        super();
+//        this.id_info_lokasi = 0;
+//        this.nohp = "";
+//        this.longitude = "";
+//        this.latittude = "";
+//        this.nama_jalan = "";
+//        this.nama_wilayah = "";
+//        this.kondisi = "";
+//        this.waktu = null;
+//        this.nama_file_foto = "";
+//        this.lokasi_file_foto = "";
     }
 
     public TrafficJam(Parcel input) {
-        this.id_info_lokasi = input.readString();
+        this.id_info_lokasi = input.readInt();
         this.nohp = input.readString();
         this.longitude = input.readString();
         this.latittude = input.readString();
-        this.id_jalan = input.readString();
-        this.id_wilayah = input.readString();
-        this.id_kondisi_jalan = input.readString();
+        this.nama_jalan = input.readString();
+        this.nama_wilayah = input.readString();
+        this.kondisi = input.readString();
+        long dateMillis = input.readLong();
+//        this.waktu = (dateMillis == -1 ? null: new Date(dateMillis));
         this.waktu = input.readString();
         this.nama_file_foto = input.readString();
         this.lokasi_file_foto = input.readString();
     }
 
-    public String getId_info_lokasi() {
+    public int getId_info_lokasi() {
         return id_info_lokasi;
     }
 
-    public void setId_info_lokasi(String id_info_lokasi) {
+    public void setId_info_lokasi(int id_info_lokasi) {
         this.id_info_lokasi = id_info_lokasi;
     }
 
@@ -102,28 +106,28 @@ public class TrafficJam implements Parcelable {
         this.latittude = latittude;
     }
 
-    public String getId_jalan() {
-        return id_jalan;
+    public String getNama_jalan() {
+        return nama_jalan;
     }
 
-    public void setId_jalan(String id_jalan) {
-        this.id_jalan = id_jalan;
+    public void setNama_jalan(String nama_jalan) {
+        this.nama_jalan = nama_jalan;
     }
 
-    public String getId_wilayah() {
-        return id_wilayah;
+    public String getNama_wilayah() {
+        return nama_wilayah;
     }
 
-    public void setId_wilayah(String id_wilayah) {
-        this.id_wilayah = id_wilayah;
+    public void setNama_wilayah(String nama_wilayah) {
+        this.nama_wilayah = nama_wilayah;
     }
 
-    public String getId_kondisi_jalan() {
-        return id_kondisi_jalan;
+    public String getKondisi() {
+        return kondisi;
     }
 
-    public void setId_kondisi_jalan(String id_kondisi_jalan) {
-        this.id_kondisi_jalan = id_kondisi_jalan;
+    public void setKondisi(String kondisi) {
+        this.kondisi = kondisi;
     }
 
     public String getWaktu() {
@@ -156,9 +160,9 @@ public class TrafficJam implements Parcelable {
                 "\nNo Hp : " + nohp +
                 "\nLongitude : " + longitude +
                 "\nLatitude : " + latittude +
-                "\nID Jalan : " + id_jalan +
-                "\nID Wilayah : " + id_wilayah +
-                "\nID Kondisi Jalan : " + id_kondisi_jalan +
+                "\nNama Jalan : " + nama_jalan +
+                "\nNama Wilayah : " + nama_wilayah +
+                "\nKondisi : " + kondisi +
                 "\nWaktu : " + waktu +
                 "\nNama File Foto : " + nama_file_foto +
                 "\nLokasi Foto : " + lokasi_file_foto +
@@ -172,13 +176,14 @@ public class TrafficJam implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id_info_lokasi);
+        parcel.writeInt(id_info_lokasi);
         parcel.writeString(nohp);
         parcel.writeString(longitude);
         parcel.writeString(latittude);
-        parcel.writeString(id_jalan);
-        parcel.writeString(id_wilayah);
-        parcel.writeString(id_kondisi_jalan);
+        parcel.writeString(nama_jalan);
+        parcel.writeString(nama_wilayah);
+        parcel.writeString(kondisi);
+//        parcel.writeLong(waktu == null ? -1 : waktu.getTime());
         parcel.writeString(waktu);
         parcel.writeString(nama_file_foto);
         parcel.writeString(lokasi_file_foto);

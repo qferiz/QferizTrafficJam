@@ -9,4 +9,6 @@
     <dimen name="statusbar_size">24dp</dimen>
     <dimen name="size_text_primary">16sp</dimen>
     <dimen name="size_text_secondary">14sp</dimen>
+    <dimen name="detail_backdrop_height">256dp</dimen>
+    <dimen name="card_margin">5dp</dimen>
 </resources>

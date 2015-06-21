@@ -10,9 +10,9 @@ public interface Keys {
         public static final String KEY_NOHP = "nohp";
         public static final String KEY_LONGITUDE = "longitude";
         public static final String KEY_LATITUDE = "latittude";
-        public static final String KEY_ID_JALAN = "id_jalan";
-        public static final String KEY_ID_WILAYAH = "id_wilayah";
-        public static final String KEY_ID_KONDISI_JALAN = "id_kondisi_jalan";
+        public static final String KEY_NAMA_JALAN = "nama_jalan";
+        public static final String KEY_NAMA_WILAYAH = "nama_wilayah";
+        public static final String KEY_KONDISI_JALAN = "kondisi";
         public static final String KEY_WAKTU = "waktu";
         public static final String KEY_NAMA_FILE_FOTO = "nama_file_foto";
         public static final String KEY_LOKASI_FOTO = "lokasi_file_foto";
