@@ -11,7 +11,7 @@
     <string name="nav_request">Request</string>
     <string name="nav_sending">Send</string>
     <string name="nav_maps">Maps</string>
-    <string name="category">Category</string>
+    <string name="category">Config</string>
     <string name="nav_setting">Setting</string>
     <string name="nav_about">About</string>
 
@@ -30,4 +30,33 @@
     <string name="title_keterangan">Keterangan</string>
     <string name="subtitle_info_ket">Waktu : </string>
     <string name="subtitle_info_maps_ket">Lokasi :</string>
+    <string name="txtLokasi">Location</string>
+    <string name="txtLatitude">Waiting Latitude..</string>
+    <string name="txtLongitude">Waiting Longitude..</string>
+    <string name="btnSend">Send</string>
+
+    <string name="option_kondisi">Pilih Kondisi</string>
+    <string-array name="object_kondisi">
+        <item>Macet</item>
+        <item>Ramai Lancar</item>
+        <item>Lancar</item>
+        <item>Kecelakaan</item>
+    </string-array>
+
+    <string name="option_wilayah">Pilih Wilayah</string>
+    <string name="txtKondisi">Condition</string>
+    <string name="txtWilayah">Region</string>
+    <string name="txtKomentar">Komentar...</string>
+    <string name="txtJalan">Road</string>
+    <string name="txtNamaJalan">Waiting for Roads..</string>
+    <string name="my_location">my location</string>
+    <string name="sync">sync</string>
+    <string-array name="object_wilayah">
+        <item>Surabaya Timur</item>
+        <item>Surabaya Barat</item>
+        <item>Surabaya Selatan</item>
+        <item>Surabaya Utara</item>
+        <item>Surabaya Pusat</item>
+    </string-array>
+
 </resources>

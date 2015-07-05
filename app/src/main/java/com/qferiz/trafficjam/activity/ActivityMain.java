@@ -1,17 +1,16 @@
 package com.qferiz.trafficjam.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -20,7 +19,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.qferiz.trafficjam.R;
 import com.qferiz.trafficjam.fragment.FragmentInfoTrafficList;
@@ -36,11 +34,18 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
 
     private static final String SELECTED_ITEM_ID = "selectedId";
     private static final String FIRST_TIME = "first_time";
+    private String TAG_REFRESH = "REFRESH";
+
+    private static final String PREFERENCES_FILE = "trafficjam_settings";
+    private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
+    private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
+    private boolean mUserLearnedDrawer;
+    private boolean mFromSavedInstanceState;
+    private int mCurrentSelectedPosition;
+    private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private NavigationView mDrawer;
     private ActionBarDrawerToggle mDrawerTogle;
-    private int mSelectedId;
-    private boolean mUserSawDrawer = false;
 
 
     @Override
@@ -48,39 +53,22 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
+        setupToolbar();
+        setupTAB();
+//        setupFAB();
+
+        mUserLearnedDrawer = Boolean.valueOf(readSharedSetting(this, PREF_USER_LEARNED_DRAWER, "false"));
+
+        if (savedInstanceState != null) {
+            mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
+            mFromSavedInstanceState = true;
         }
 
-        mDrawer = (NavigationView) findViewById(R.id.nav_view);
-        mDrawer.setNavigationItemSelectedListener(this);
+        setupNavDrawer();
 
-//        if (mDrawer != null) {
-//            setupDrawerContent(mDrawer);
-//        }
+    }
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        mDrawerTogle = new ActionBarDrawerToggle(this,
-                mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
-
-        mDrawerLayout.setDrawerListener(mDrawerTogle);
-        mDrawerTogle.syncState();
-
-//        L.T(getApplicationContext(), "Nilai didUseeDrawer Before = " + didUserSeeDrawer());
-        if (!didUserSeeDrawer()) {
-            showDrawer();
-            markDrawerSeen();
-        } else {
-            hideDrawer();
-        }
-
-        L.T(getApplicationContext(), "Nilai didUseeDrawer After = " + didUserSeeDrawer());
-
-        mSelectedId = savedInstanceState == null ? R.id.nav_info : savedInstanceState.getInt(SELECTED_ITEM_ID);
-        navigate(mSelectedId);
-
+    private void setupTAB() {
         final ViewPager mViewPager = (ViewPager) findViewById(R.id.main_viewpager);
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.main_tab);
 
@@ -92,20 +80,33 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                /*switch (tab.getPosition()) {
-                    case 0:
-                        L.t(getApplicationContext(), "Tab Info");
-                        break;
-                    case 1:
-                        L.t(getApplicationContext(), "Tab Request Info");
-                        break;
-                    case 2:
-                        L.t(getApplicationContext(), "Tab Send Info");
-                        break;
-                }*/
+
                 if (mViewPager != null) {
                     mViewPager.setCurrentItem(tab.getPosition());
+
+               /*     if (tab.getPosition() == 0) {
+                        LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(getApplicationContext());
+                        Intent i = new Intent(TAG_REFRESH);
+                        lbm.sendBroadcast(i);
+                    }*/
+
+                    switch (tab.getPosition()) {
+                        case 0:
+//                            L.t(getApplicationContext(), "Tab Info");
+                            break;
+                        case 1:
+//                            L.t(getApplicationContext(), "Tab Request Info");
+                            break;
+                        case 2:
+//                            L.t(getApplicationContext(), "Tab Send Info");
+                            LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(getApplicationContext());
+                            Intent i = new Intent(TAG_REFRESH);
+                            lbm.sendBroadcast(i);
+                            break;
+                    }
                 }
+
+
             }
 
             @Override
@@ -119,73 +120,51 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
             }
         });
 
+    }
+
+   /* private void setupFAB() {
         FloatingActionButton mFAB = (FloatingActionButton) findViewById(R.id.main_fab);
         mFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Tes Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("DETAIL", null).show();
+                Snackbar.make(view, "Drawer Open", Snackbar.LENGTH_LONG)
+                        .setAction("OPEN", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                mDrawerLayout.openDrawer(GravityCompat.START);
+                            }
+                        }).show();
+//                        .setAction("DETAIL", null).show();
             }
         });
+    }*/
 
+    private void setupNavDrawer() {
+        mDrawer = (NavigationView) findViewById(R.id.nav_view);
+        mDrawer.setNavigationItemSelectedListener(this);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        // Animate Burger Icon
+        if (mToolbar != null) {
+            mDrawerTogle = new ActionBarDrawerToggle(this,
+                    mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
+
+            mDrawerLayout.setDrawerListener(mDrawerTogle);
+            mDrawerTogle.syncState();
+        }
+
+        if (!mUserLearnedDrawer) {
+            showDrawer();
+            mUserLearnedDrawer = true;
+            saveSharedSetting(this, PREF_USER_LEARNED_DRAWER, "true");
+        }
     }
 
-    private void navigate(int mSelectedId) {
-        Intent intent = null;
-
-        if (mSelectedId == R.id.nav_info) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            L.t(getApplicationContext(), "Navigasi Info");
-//            intent = new Intent(this, ActivityMaps.class);
-//            startActivity(intent);
+    private void setupToolbar() {
+        mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
         }
-
-        if (mSelectedId == R.id.nav_request) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            L.t(getApplicationContext(), "Navigasi Requester");
-//            intent = new Intent(this, ActivityMaps.class);
-//            startActivity(intent);
-        }
-
-        if (mSelectedId == R.id.nav_sending) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            L.t(getApplicationContext(), "Navigasi Sending");
-//            intent = new Intent(this, ActivityMaps.class);
-//            startActivity(intent);
-        }
-
-        // Activity Maps
-        if (mSelectedId == R.id.nav_maps) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            intent = new Intent(this, ActivityMaps.class);
-            startActivity(intent);
-        }
-
-        if (mSelectedId == R.id.nav_setting) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            L.t(getApplicationContext(), "Navigasi Setting");
-//            intent = new Intent(this, ActivityMaps.class);
-//            startActivity(intent);
-        }
-
-        if (mSelectedId == R.id.nav_about) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            intent = new Intent(this, ActivityAbout.class);
-            startActivity(intent);
-        }
-
-    }
-
-    private boolean didUserSeeDrawer() {
-        SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mSharedPreferences.getBoolean(FIRST_TIME, false);
-        return mUserSawDrawer;
-    }
-
-    private void markDrawerSeen() {
-        SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mUserSawDrawer = true;
-        mSharedPreferences.edit().putBoolean(FIRST_TIME, mUserSawDrawer).apply();
     }
 
     private void showDrawer() {
@@ -193,7 +172,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
     }
 
     private void hideDrawer() {
-        mDrawerLayout.closeDrawers();
+        mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
     private void setupViewPager(ViewPager mViewPager) {
@@ -230,37 +209,77 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-                        return true;
-                    }
-                }
-        );
-    }
-
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
 
         menuItem.setChecked(true);
-        mSelectedId = menuItem.getItemId();
+        Intent mIntent = null;
 
-        navigate(mSelectedId);
-        return true;
+        switch (menuItem.getItemId()) {
+            case R.id.nav_info:
+                hideDrawer();
+                L.t(getApplicationContext(), "Navigasi Info");
+                mCurrentSelectedPosition = 0;
+                return true;
 
+            case R.id.nav_request:
+                hideDrawer();
+                L.t(getApplicationContext(), "Navigasi Request");
+                mCurrentSelectedPosition = 1;
+                return true;
+
+            case R.id.nav_sending:
+                hideDrawer();
+                L.t(getApplicationContext(), "Navigasi Sending");
+                mCurrentSelectedPosition = 2;
+                return true;
+
+            case R.id.nav_maps:
+                hideDrawer();
+                L.t(getApplicationContext(), "Navigasi Maps");
+                mIntent = new Intent(this, ActivityMaps.class);
+                startActivity(mIntent);
+                mCurrentSelectedPosition = 3;
+                return true;
+
+            case R.id.nav_setting:
+                hideDrawer();
+                L.t(getApplicationContext(), "Navigasi Setting");
+                mCurrentSelectedPosition = 4;
+                return true;
+
+            case R.id.nav_about:
+                hideDrawer();
+                L.t(getApplicationContext(), "Navigasi About");
+                mIntent = new Intent(this, ActivityAbout.class);
+                startActivity(mIntent);
+                mCurrentSelectedPosition = 5;
+                return true;
+
+            default:
+                return true;
+        }
     }
 
     @Override
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawers();
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
+    }
+
+    public static void saveSharedSetting(Context context, String settingName, String settingValue) {
+        SharedPreferences mSharedPreferences = context.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString(settingName, settingValue);
+        editor.apply();
+    }
+
+    public static String readSharedSetting(Context context, String settingName, String settingValue) {
+        SharedPreferences mSharedPreferences = context.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
+        return mSharedPreferences.getString(settingName, settingValue);
     }
 
     @Override
@@ -272,7 +291,16 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(SELECTED_ITEM_ID, mSelectedId);
+//        outState.putInt(SELECTED_ITEM_ID, mSelectedId);
+        outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION, 0);
+        Menu mMenu = mDrawer.getMenu();
+        mMenu.getItem(mCurrentSelectedPosition).setChecked(true);
     }
 
     static class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -302,4 +330,5 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
             return mFragmentsTitles.get(position);
         }
     }
+
 }

@@ -3,6 +3,7 @@ package com.qferiz.trafficjam.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,6 +55,8 @@ public class FragmentInfoTrafficList extends Fragment implements InfoTrafficJamL
 //        RecyclerView rv = (RecyclerView) inflater.inflate(R.layout.fragment_info_traffic_list, container, false);
         mView = inflater.inflate(R.layout.fragment_info_traffic_list, container, false);
 
+        setupFAB();
+
         // SwipeRefreshLayout Animation Gesture
         mSwipeRefreshLayout = (SwipeRefreshLayout) mView.findViewById(R.id.swipeInfoTraffic);
 //        mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.RED, Color.MAGENTA, Color.GREEN);
@@ -93,6 +96,23 @@ public class FragmentInfoTrafficList extends Fragment implements InfoTrafficJamL
         // Update adapter to contain the retrieved traffic jam
         mAdapter.setListTraffic(mListTraffic);
     }*/
+
+    private void setupFAB() {
+        FloatingActionButton mFAB = (FloatingActionButton) mView.findViewById(R.id.fabTrafficList);
+        mFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                L.t(getActivity(), "Pilih Direction");
+//                Snackbar.make(mView, "Direction", Snackbar.LENGTH_LONG)
+//                .setAction("GO", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        L.t(getActivity(), "Direction Maps");
+//                    }
+//                }).show();
+            }
+        });
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

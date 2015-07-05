@@ -53,7 +53,7 @@ public class TrafficJamDB {
         }
 
         // Set the Transaction as Succesfull and end the transaction
-        L.m("Inserting entries " + listTraffic.size() + new Date(System.currentTimeMillis()));
+        L.m("Inserting entries " + listTraffic.size() + " " + new Date(System.currentTimeMillis()));
         mDatabase.setTransactionSuccessful();
         mDatabase.endTransaction();
     }

@@ -1,13 +1,209 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.qferiz.trafficjam.fragment.FragmentSendInfo">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/text_send" />
 
-</FrameLayout>
+    <!--<android.support.v4.widget.NestedScrollView-->
+    <!--android:id="@+id/nested_scroll_send"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <ScrollView
+        android:id="@+id/scrollView_Send"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_vertical">
+
+            <TextView
+                android:id="@+id/txtLokasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_margin="@dimen/size_vertical"
+                android:text="@string/txtLokasi"
+                android:textColor="@color/colorInfoPrimaryText"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtLatitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignTop="@+id/txtLokasi"
+                android:layout_margin="@dimen/size_vertical"
+                android:gravity="end"
+                android:text="@string/txtLatitude"
+                android:textColor="@color/colorInfoPrimaryText"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtLongitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/txtLatitude"
+                android:layout_margin="@dimen/size_text"
+                android:gravity="end"
+                android:text="@string/txtLongitude"
+                android:textColor="@color/colorInfoPrimaryText"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtKondisi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/txtKondisi"
+                android:textColor="@color/colorInfoPrimaryText"
+                android:textSize="16sp"
+                android:layout_alignTop="@+id/spinnerKondisi"
+                android:layout_alignLeft="@+id/txtJalan"
+                android:layout_alignStart="@+id/txtJalan" />
+
+            <Spinner
+                android:id="@+id/spinnerKondisi"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtLongitude"
+                android:layout_gravity="right"
+                android:layout_centerHorizontal="true"
+                android:layout_toEndOf="@+id/txtKondisi"
+                android:layout_toRightOf="@+id/txtKondisi"
+                android:dropDownSelector="#37b9ff"
+                android:entries="@array/object_kondisi"
+                android:prompt="@string/option_kondisi"
+                android:layout_marginLeft="@dimen/size_vertical"
+                android:layout_marginRight="@dimen/size_vertical"
+                android:layout_marginTop="@dimen/size_vertical" />
+
+            <TextView
+                android:id="@+id/txtJalan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/txtJalan"
+                android:textColor="@color/colorInfoPrimaryText"
+                android:textSize="16sp"
+                android:layout_alignTop="@+id/txtNamaJalan"
+                android:layout_alignLeft="@+id/txtLokasi"
+                android:layout_alignStart="@+id/txtLokasi" />
+
+            <TextView
+                android:id="@+id/txtNamaJalan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/spinnerKondisi"
+                android:layout_marginTop="@dimen/size_vertical"
+                android:layout_marginRight="@dimen/size_vertical"
+                android:layout_marginLeft="@dimen/size_vertical"
+                android:layout_marginBottom="@dimen/size_vertical_text"
+                android:layout_toEndOf="@+id/txtJalan"
+                android:layout_toRightOf="@+id/txtJalan"
+                android:gravity="end"
+                android:text="@string/txtNamaJalan"
+                android:textColor="@color/colorInfoPrimaryText"
+                android:textSize="16sp" />
+
+
+            <!--<TextView
+                android:id="@+id/txtWilayah"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/txtKondisi"
+                android:layout_margin="@dimen/size_vertical"
+                android:gravity="start"
+                android:text="@string/txtWilayah"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorInfoPrimaryText" />
+-->
+            <!--<Spinner
+                android:id="@+id/spinnerWilayah"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/txtWilayah"
+                android:layout_toEndOf="@+id/txtKondisi"
+                android:layout_toRightOf="@+id/txtKondisi"
+                android:entries="@array/object_wilayah"
+                android:prompt="@string/option_wilayah"
+                android:layout_margin="@dimen/size_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/colorInfoPrimaryText"
+                android:layout_gravity="right" />-->
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageLaLin"
+                android:layout_width="225dp"
+                android:layout_height="225dp"
+                android:src="@drawable/empty_photo_entry"
+                android:layout_below="@+id/tilKomentar"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilKomentar"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/txtNamaJalan"
+                android:layout_alignLeft="@+id/txtLongitude"
+                android:layout_alignStart="@+id/txtLongitude"
+                android:layout_marginTop="27dp">
+
+                <EditText
+                    android:id="@+id/edKomentar"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/imageLaLin"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/size_vertical"
+                    android:ems="10"
+                    android:hint="@string/txtKomentar"
+                    android:inputType="textMultiLine" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!--  <Button
+                  android:id="@+id/btnSend"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_margin="@dimen/size_vertical"
+                  android:layout_below="@+id/imageLaLin"
+                  android:background="@color/colorAccent"
+                  android:text="@string/btnSend"
+                  android:textAllCaps="false"
+                  android:textColor="@color/colorPrimaryLight"
+                  android:textSize="20sp" />-->
+
+        </RelativeLayout>
+    </ScrollView>
+    <!--</android.support.v4.widget.NestedScrollView>-->
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSendInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_action_cloud_upload_36dp"
+        app:fabSize="normal" />
+
+</android.support.design.widget.CoordinatorLayout>

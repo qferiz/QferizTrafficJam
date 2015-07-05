@@ -5,4 +5,5 @@
     tools:context="com.qferiz.trafficjam.activity.ActivityMaps">
 
     <include layout="@layout/toolbar" />
+
 </RelativeLayout>

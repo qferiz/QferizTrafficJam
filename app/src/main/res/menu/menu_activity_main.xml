@@ -2,15 +2,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ActivityMain">
+
+    <item
+        android:id="@+id/sync"
+        android:orderInCategory="10"
+        android:title="@string/sync"
+        android:icon="@drawable/ic_action_sync"
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="20"
         android:title="@string/action_settings"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/ActivityTakePhoto"
-        android:orderInCategory="100"
+        android:orderInCategory="30"
         android:title="@string/take_photo"
         app:showAsAction="never" />
 
