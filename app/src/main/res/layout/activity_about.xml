@@ -214,6 +214,50 @@
                         android:textColor="@color/colorInfoPrimaryText"
                         android:textSize="@dimen/sub_subtitle_size_font" />
 
+                    <TextView
+                        android:id="@+id/subtitle_email_ket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/subtitle_universitas_ket"
+                        android:text="@string/subtitle_email_ket"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                    <TextView
+                        android:id="@+id/txtEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtUniversitas"
+                        android:layout_toEndOf="@+id/subtitle_email_ket"
+                        android:layout_toRightOf="@+id/subtitle_email_ket"
+                        android:gravity="right"
+                        android:text="@string/email_username"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                    <TextView
+                        android:id="@+id/subtitle_phone_ket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/subtitle_email_ket"
+                        android:text="@string/subtitle_phone_ket"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                    <TextView
+                        android:id="@+id/txtPhoneNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtEmail"
+                        android:layout_toEndOf="@+id/subtitle_phone_ket"
+                        android:layout_toRightOf="@+id/subtitle_phone_ket"
+                        android:gravity="right"
+                        android:text="@string/txtPhoneNumber"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 

@@ -13,7 +13,7 @@
     <string name="nav_about">Tentang</string>
     <string name="nav_info">Info</string>
     <string name="nav_maps">Peta</string>
-    <string name="nav_request">Permintaan</string>
+    <string name="nav_request">Cari</string>
     <string name="nav_sending">Kirim</string>
     <string name="nav_setting">Pengaturan</string>
     <string name="option_kondisi">Pilih Kondisi</string>
@@ -52,7 +52,7 @@
     <string name="txtNamaJalan">Menunggu Jalan..</string>
     <string name="txtNamaJudulTA">SISTEM INFORMASI PEMETAAN KEMACETAN LALU LINTAS BERBASIS ANDROID</string>
     <string name="txtProfile">Profil</string>
-    <string name="txtVersiAplikasi">Versi : 1.0.0</string>
+    <string name="txtVersiAplikasi">Versi : 1.0</string>
     <string name="txtWilayah">Wilayah</string>
     <string name="username">Rizki Yuniardi</string>
     <string name="info_traffic">Lalu Lintas di Jalan Panglima Sudirman Surabaya Kondisi Ramai Lancar.         Harap utamakan keselamatan. Utamakan Safety Riding. Patuhi rambu-rambu lalu lintas. Happy Nice Day</string>
@@ -73,4 +73,10 @@
     <string name="txtRamaiLancar">Ramai Lancar</string>
     <string name="txtKecelakaan">Kecelakaan</string>
     <string name="txtLancar">Lancar</string>
+    <string name="tabInfo">INFO</string>
+    <string name="tabSearch">CARI</string>
+    <string name="tabSend">KIRIM</string>
+    <string name="subtitle_email_ket">Email :</string>
+    <string name="subtitle_phone_ket">No. Telpon :</string>
+    <string name="txtPhoneNumber">+6285257004040</string>
 </resources>

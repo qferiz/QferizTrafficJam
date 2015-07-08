@@ -28,7 +28,6 @@ import com.qferiz.trafficjam.R;
 import com.qferiz.trafficjam.fragment.FragmentInfoTrafficList;
 import com.qferiz.trafficjam.fragment.FragmentRequestInfo;
 import com.qferiz.trafficjam.fragment.FragmentSendInfo;
-import com.qferiz.trafficjam.logging.L;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -236,9 +235,9 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
 
     private void setupViewPager(ViewPager mViewPager) {
         ViewPagerAdapter mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        mViewPagerAdapter.addFragment(new FragmentInfoTrafficList(), "INFO");
-        mViewPagerAdapter.addFragment(new FragmentRequestInfo(), "REQUEST");
-        mViewPagerAdapter.addFragment(new FragmentSendInfo(), "SEND");
+        mViewPagerAdapter.addFragment(new FragmentInfoTrafficList(), getString(R.string.tabInfo));
+        mViewPagerAdapter.addFragment(new FragmentRequestInfo(), getString(R.string.tabSearch));
+        mViewPagerAdapter.addFragment(new FragmentSendInfo(), getString(R.string.tabSend));
         mViewPager.setAdapter(mViewPagerAdapter);
     }
 
@@ -281,28 +280,28 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()) {
             case R.id.nav_info:
                 hideDrawer();
-                L.t(getApplicationContext(), "Navigasi Info");
+//                L.t(getApplicationContext(), "Navigasi Info");
                 mCurrentSelectedPosition = 0;
                 mViewPager.setCurrentItem(mCurrentSelectedPosition);
                 return true;
 
             case R.id.nav_request:
                 hideDrawer();
-                L.t(getApplicationContext(), "Navigasi Request");
+//                L.t(getApplicationContext(), "Navigasi Request");
                 mCurrentSelectedPosition = 1;
                 mViewPager.setCurrentItem(mCurrentSelectedPosition);
                 return true;
 
             case R.id.nav_sending:
                 hideDrawer();
-                L.t(getApplicationContext(), "Navigasi Sending");
+//                L.t(getApplicationContext(), "Navigasi Sending");
                 mCurrentSelectedPosition = 2;
                 mViewPager.setCurrentItem(mCurrentSelectedPosition);
                 return true;
 
             case R.id.nav_maps:
                 hideDrawer();
-                L.t(getApplicationContext(), "Navigasi Maps");
+//                L.t(getApplicationContext(), "Navigasi Maps");
                 mIntent = new Intent(this, ActivityMaps.class);
                 startActivity(mIntent);
                 mCurrentSelectedPosition = 3;
@@ -310,13 +309,13 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_setting:
                 hideDrawer();
-                L.t(getApplicationContext(), "Navigasi Setting");
+//                L.t(getApplicationContext(), "Navigasi Setting");
                 mCurrentSelectedPosition = 4;
                 return true;
 
             case R.id.nav_about:
                 hideDrawer();
-                L.t(getApplicationContext(), "Navigasi About");
+//                L.t(getApplicationContext(), "Navigasi About");
                 mIntent = new Intent(this, ActivityAbout.class);
                 startActivity(mIntent);
                 mCurrentSelectedPosition = 5;
