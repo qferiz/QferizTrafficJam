@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="object_kondisi">
+        <item>@string/txtMacet</item>
+        <item>@string/txtRamaiLancar</item>
+        <item>@string/txtLancar</item>
+        <item>@string/txtKecelakaan</item>
+    </string-array>
+
+    <string-array name="object_wilayah">
+        <item>Surabaya Timur</item>
+        <item>Surabaya Barat</item>
+        <item>Surabaya Selatan</item>
+        <item>Surabaya Utara</item>
+        <item>Surabaya Pusat</item>
+    </string-array>
+</resources>

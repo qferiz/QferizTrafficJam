@@ -1,5 +1,6 @@
 package com.qferiz.trafficjam.task;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
 import com.android.volley.RequestQueue;
@@ -17,6 +18,7 @@ public class TaskLoadInfoTrafficJam extends AsyncTask<Void, Void, ArrayList<Traf
     private InfoTrafficJamLoadedListener myComponent;
     private VolleySingleton mVolleySingleton;
     private RequestQueue mRequestQueue;
+    private ProgressDialog mProgressDialog;
 
     public TaskLoadInfoTrafficJam(InfoTrafficJamLoadedListener myComponent) {
         this.myComponent = myComponent;
@@ -25,9 +27,21 @@ public class TaskLoadInfoTrafficJam extends AsyncTask<Void, Void, ArrayList<Traf
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+//        mProgressDialog = new ProgressDialog();
+
+    }
+
+    @Override
     protected ArrayList<TrafficJam> doInBackground(Void... voids) {
         ArrayList<TrafficJam> listTraffic = TrafficJamUtils.loadInfoTrafficJam(mRequestQueue);
         return listTraffic;
+    }
+
+    @Override
+    protected void onProgressUpdate(Void... values) {
+        super.onProgressUpdate(values);
     }
 
     @Override

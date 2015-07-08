@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,8 +19,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.qferiz.trafficjam.R;
 import com.qferiz.trafficjam.fragment.FragmentInfoTrafficList;
@@ -34,7 +38,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
 
     private static final String SELECTED_ITEM_ID = "selectedId";
     private static final String FIRST_TIME = "first_time";
-    private String TAG_REFRESH = "REFRESH";
+    private static final String TAG_REFRESH = "REFRESH";
 
     private static final String PREFERENCES_FILE = "trafficjam_settings";
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
@@ -46,6 +50,9 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawerLayout;
     private NavigationView mDrawer;
     private ActionBarDrawerToggle mDrawerTogle;
+    private ViewPager mViewPager;
+    private TabLayout mTabLayout;
+    private Menu mMenu;
 
 
     @Override
@@ -65,12 +72,14 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         }
 
         setupNavDrawer();
+        // Mengambil data Identity HP : IMSI, IMEI, PHONENUMBER
+        getMyIdentityPhone();
 
     }
 
     private void setupTAB() {
-        final ViewPager mViewPager = (ViewPager) findViewById(R.id.main_viewpager);
-        TabLayout mTabLayout = (TabLayout) findViewById(R.id.main_tab);
+        mViewPager = (ViewPager) findViewById(R.id.main_viewpager);
+        mTabLayout = (TabLayout) findViewById(R.id.main_tab);
 
         if (mViewPager != null) {
             setupViewPager(mViewPager);
@@ -84,7 +93,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
                 if (mViewPager != null) {
                     mViewPager.setCurrentItem(tab.getPosition());
 
-               /*     if (tab.getPosition() == 0) {
+            /*        if (tab.getPosition() == 0) {
                         LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(getApplicationContext());
                         Intent i = new Intent(TAG_REFRESH);
                         lbm.sendBroadcast(i);
@@ -93,17 +102,23 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
                     switch (tab.getPosition()) {
                         case 0:
 //                            L.t(getApplicationContext(), "Tab Info");
+                            mCurrentSelectedPosition = 0;
                             break;
                         case 1:
 //                            L.t(getApplicationContext(), "Tab Request Info");
+                            mCurrentSelectedPosition = 1;
                             break;
                         case 2:
 //                            L.t(getApplicationContext(), "Tab Send Info");
+                            mCurrentSelectedPosition = 2;
                             LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(getApplicationContext());
                             Intent i = new Intent(TAG_REFRESH);
                             lbm.sendBroadcast(i);
                             break;
                     }
+
+                    // Set checked for Drawer Slide Navigation View
+                    drawerChecked();
                 }
 
 
@@ -120,6 +135,11 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
             }
         });
 
+    }
+
+    private void drawerChecked() {
+        mMenu = mDrawer.getMenu();
+        mMenu.getItem(mCurrentSelectedPosition).setChecked(true);
     }
 
    /* private void setupFAB() {
@@ -158,6 +178,9 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
             mUserLearnedDrawer = true;
             saveSharedSetting(this, PREF_USER_LEARNED_DRAWER, "true");
         }
+
+        // Set checked for Drawer Slide Navigation View
+        drawerChecked();
     }
 
     private void setupToolbar() {
@@ -165,6 +188,42 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
+    }
+
+    private void getMyIdentityPhone() {
+        TelephonyManager mTelephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String IMSI = mTelephonyManager.getSubscriberId();
+        String deviceIdIMEI;
+        // Membaca IMEI
+        if (mTelephonyManager.getDeviceId() != null) {
+            // Untuk SmartPhone
+            deviceIdIMEI = mTelephonyManager.getDeviceId();
+        } else {
+            // Untuk Tablet
+            deviceIdIMEI = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        }
+
+        // Untuk Tablet
+        String androidID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        String phoneNumber = mTelephonyManager.getLine1Number(); // Maybe return NULL
+        String serialNumberSIM = mTelephonyManager.getSimSerialNumber();
+        String osAndroid = mTelephonyManager.getDeviceSoftwareVersion();
+        String serialNumberHP = Build.SERIAL;
+
+        String message = String.format(
+                "Data Identity HP Anda " +
+                        "\n IMSI : %1$s " +
+                        "\n IMEI : %2$s " +
+                        "\n ANDROID ID : %3$s" +
+                        "\n NOHP : %4$s" +
+                        "\n SerialNumber SIM : %5$s" +
+                        "\n OS Android : %6$s" +
+                        "\n Serial Number HP : %7$s",
+                IMSI, deviceIdIMEI, androidID, phoneNumber, serialNumberSIM, osAndroid, serialNumberHP
+        );
+
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     private void showDrawer() {
@@ -206,6 +265,10 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(this, ActivityTakePhoto.class));
         }
 
+        if (id == R.id.sync) {
+            getMyIdentityPhone();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -220,18 +283,21 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
                 hideDrawer();
                 L.t(getApplicationContext(), "Navigasi Info");
                 mCurrentSelectedPosition = 0;
+                mViewPager.setCurrentItem(mCurrentSelectedPosition);
                 return true;
 
             case R.id.nav_request:
                 hideDrawer();
                 L.t(getApplicationContext(), "Navigasi Request");
                 mCurrentSelectedPosition = 1;
+                mViewPager.setCurrentItem(mCurrentSelectedPosition);
                 return true;
 
             case R.id.nav_sending:
                 hideDrawer();
                 L.t(getApplicationContext(), "Navigasi Sending");
                 mCurrentSelectedPosition = 2;
+                mViewPager.setCurrentItem(mCurrentSelectedPosition);
                 return true;
 
             case R.id.nav_maps:
@@ -299,7 +365,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION, 0);
-        Menu mMenu = mDrawer.getMenu();
+        mMenu = mDrawer.getMenu();
         mMenu.getItem(mCurrentSelectedPosition).setChecked(true);
     }
 

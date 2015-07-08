@@ -1,9 +1,291 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_about"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.qferiz.trafficjam.activity.ActivityAbout">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar_quick_return" />
 
-</RelativeLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll_about"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageLaLin"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="@dimen/size_horizontal"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/qferiz" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_margin">
+
+                <LinearLayout
+                    style="@style/Widget.CardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtNamaAplikasi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txtNamaAplikasi"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorInfoSecondaryText" />
+
+                    <TextView
+                        android:id="@+id/txtVersiAplikasi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txtVersiAplikasi"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                    <TextView
+                        android:id="@+id/txtCopyrightAplikasi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txtCopyrightAplikasi"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_margin">
+
+                <RelativeLayout
+                    style="@style/Widget.CardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:text="@string/txtProfile"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <View
+                        android:id="@+id/line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/txtProfile"
+                        android:background="@color/colorInfoSecondaryText" />
+
+                    <TextView
+                        android:id="@+id/subtitle_nbi_ket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/line"
+                        android:text="@string/subtitle_nbi_ket"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+
+                    <TextView
+                        android:id="@+id/txtNBI"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/line"
+                        android:layout_toEndOf="@+id/subtitle_nbi_ket"
+                        android:layout_toRightOf="@+id/subtitle_nbi_ket"
+                        android:gravity="right"
+                        android:text="@string/txtNBI"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+
+                    <TextView
+                        android:id="@+id/subtitle_nama_ket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/subtitle_nbi_ket"
+                        android:text="@string/subtitle_nama_ket"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                    <TextView
+                        android:id="@+id/txtNama"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtNBI"
+                        android:layout_toEndOf="@+id/subtitle_nama_ket"
+                        android:layout_toRightOf="@+id/subtitle_nama_ket"
+                        android:gravity="right"
+                        android:text="@string/txtNama"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                    <TextView
+                        android:id="@+id/subtitle_fakultas_ket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/subtitle_nama_ket"
+                        android:text="@string/subtitle_fakultas_ket"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                    <TextView
+                        android:id="@+id/txtFakultas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtNama"
+                        android:layout_toEndOf="@+id/subtitle_fakultas_ket"
+                        android:layout_toRightOf="@+id/subtitle_fakultas_ket"
+                        android:gravity="right"
+                        android:text="@string/txtFakultas"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                    <TextView
+                        android:id="@+id/subtitle_jurusan_ket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/subtitle_fakultas_ket"
+                        android:text="@string/subtitle_jurusan_ket"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                    <TextView
+                        android:id="@+id/txtJurusan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtFakultas"
+                        android:layout_toEndOf="@+id/subtitle_jurusan_ket"
+                        android:layout_toRightOf="@+id/subtitle_jurusan_ket"
+                        android:gravity="right"
+                        android:text="@string/txtJurusan"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                    <TextView
+                        android:id="@+id/subtitle_universitas_ket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/subtitle_jurusan_ket"
+                        android:text="@string/subtitle_universitas_ket"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                    <TextView
+                        android:id="@+id/txtUniversitas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtJurusan"
+                        android:layout_toEndOf="@+id/subtitle_universitas_ket"
+                        android:layout_toRightOf="@+id/subtitle_universitas_ket"
+                        android:gravity="right"
+                        android:text="@string/txtUniversitas"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_margin">
+
+                <LinearLayout
+                    style="@style/Widget.CardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtJudulTA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txtJudulTA"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorInfoSecondaryText" />
+
+                    <TextView
+                        android:id="@+id/txtNamaJudulTA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txtNamaJudulTA"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_margin">
+
+                <LinearLayout
+                    style="@style/Widget.CardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtDeskripsiTA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txtDeskripsiTA"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorInfoSecondaryText" />
+
+                    <TextView
+                        android:id="@+id/txtNamaDeskripsiTA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txtNamaDeskripsiTA"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

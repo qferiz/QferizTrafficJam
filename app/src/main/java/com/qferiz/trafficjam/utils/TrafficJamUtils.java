@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class TrafficJamUtils {
     public static ArrayList<TrafficJam> loadInfoTrafficJam(RequestQueue requestQueue) {
-        JSONObject response = Requestor.requestInfoTrafficJSON(requestQueue, Endpoints.getRequestUrlInfoTrafficJam(30));
+        JSONObject response = Requestor.requestInfoTrafficJSON(requestQueue, Endpoints.getRequestUrlInfoTrafficJam(10));
         ArrayList<TrafficJam> listTraffic = Parser.parseInfoTrafficJSON(response);
         MyApplication.getWritableDatabase().insertTrafficJam(listTraffic, true);
         return listTraffic;

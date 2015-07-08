@@ -15,7 +15,7 @@ public class ActivityAbout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.submain_toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             assert getSupportActionBar() != null;

@@ -35,6 +35,7 @@ import com.qferiz.trafficjam.logging.L;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -49,16 +50,14 @@ public class FragmentSendInfo extends Fragment {
     private double GET_LATITUDE;
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 10; // dalam meter
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 60000; // dalam Miliseconds
-    private String TAG_REFRESH = "REFRESH";
+    private static final String TAG_REFRESH = "REFRESH";
 
     private Spinner mSpinnerKondisi;
     //    private Spinner mSpinnerWilayah;
     private View mView;
     private Button mButton;
     private CircleImageView mCircleImageView;
-    private TextView mLatitude;
-    private TextView mLongitude;
-    private TextView mRoads;
+    private TextView mLatitude, mLongitude, mRoads, mSubDistrict, mCity, mRegion, mCountry;
     private ProgressDialog mProgressDialog;
     private MyReceiver mReceiver;
     protected FragmentActivity mFragmentActivity;
@@ -201,6 +200,7 @@ public class FragmentSendInfo extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            // Methode Refresh di panggil ketika fragment dipanggil/background proses
             FragmentSendInfo.this.refresh();
         }
     }
@@ -238,7 +238,7 @@ public class FragmentSendInfo extends Fragment {
     private void setupReverseGeocoding() {
         if (mLocation != null) {
 
-            Geocoder mGeocoder = new Geocoder(getActivity());
+            Geocoder mGeocoder = new Geocoder(getActivity(), Locale.getDefault());
             GET_LATITUDE = mLocation.getLatitude();
             GET_LONGITUDE = mLocation.getLongitude();
 
@@ -254,14 +254,34 @@ public class FragmentSendInfo extends Fragment {
             if (mAddresses != null && mAddresses.size() > 0) {
                 Address address = mAddresses.get(0);
 
-                addressText = String.format("%s, %s, %s, %s",
-                        address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
-                        address.getLocality(),
-                        address.getAdminArea(),
-                        address.getCountryName());
+                String getNamaJalan = address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "";
+                String getNamaKecamatan = address.getLocality();
+                String getNamaKota = address.getSubAdminArea();
+                String getNamaPropinsi = address.getAdminArea();
+                String getNamaNegara = address.getCountryName();
+
+                /*addressText = String.format("%s, %s, %s, %s, %s",
+                        address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "", // Jalan Rokan No. 2
+                        address.getLocality(), // Wonokromo (Kecamatan)
+                        address.getSubAdminArea(), // Kota Surabaya
+                        address.getAdminArea(), // East Java (Propinsi)
+                        address.getCountryName()); // Indonesia (Negara)*/
 
                 mRoads = (TextView) mView.findViewById(R.id.txtNamaJalan);
-                mRoads.setText(addressText);
+                mRoads.setText(getNamaJalan);
+
+                mSubDistrict = (TextView) mView.findViewById(R.id.txtNamaKecamatan);
+                mSubDistrict.setText(getNamaKecamatan);
+
+                mCity = (TextView) mView.findViewById(R.id.txtNamaKota);
+                mCity.setText(getNamaKota);
+
+                mRegion = (TextView) mView.findViewById(R.id.txtNamaPropinsi);
+                mRegion.setText(getNamaPropinsi);
+
+                mCountry = (TextView) mView.findViewById(R.id.txtNamaNegara);
+                mCountry.setText(getNamaNegara);
+
             }
         }
     }
@@ -282,7 +302,7 @@ public class FragmentSendInfo extends Fragment {
 
     private void setupShowCurrentLocation() {
         // Progress Loading Data
-        showProgress();
+//        showProgress();
 
         if (mLocation != null) {
             GET_LATITUDE = mLocation.getLatitude();
@@ -307,7 +327,7 @@ public class FragmentSendInfo extends Fragment {
 
         }
 
-        stopProgress();
+//        stopProgress();
     }
 
     private void setupLocationManager() {

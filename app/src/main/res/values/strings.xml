@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Qferiz Traffic Jam</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_activity_take_photo">ActivityTakePhoto</string>
-    <string name="button_take_photo">Foto Dari Kamera</string>
+    <string name="button_take_photo">Take a Picture</string>
     <string name="take_photo">Take a Photo</string>
     <string name="username">Rizki Yuniardi</string>
     <string name="email_username">rizki.feriz@gmail.com</string>
@@ -11,7 +10,7 @@
     <string name="nav_request">Request</string>
     <string name="nav_sending">Send</string>
     <string name="nav_maps">Maps</string>
-    <string name="category">Config</string>
+    <string name="category">Category</string>
     <string name="nav_setting">Setting</string>
     <string name="nav_about">About</string>
 
@@ -26,37 +25,69 @@
     <string name="title_activity_activity_maps">Maps</string>
     <string name="title_activity_activity_about">About</string>
     <string name="title_info">Info</string>
-    <string name="title_kondisi">Kondisi</string>
-    <string name="title_keterangan">Keterangan</string>
-    <string name="subtitle_info_ket">Waktu : </string>
-    <string name="subtitle_info_maps_ket">Lokasi :</string>
+    <string name="title_keterangan">Information</string>
     <string name="txtLokasi">Location</string>
     <string name="txtLatitude">Waiting Latitude..</string>
     <string name="txtLongitude">Waiting Longitude..</string>
     <string name="btnSend">Send</string>
 
-    <string name="option_kondisi">Pilih Kondisi</string>
-    <string-array name="object_kondisi">
-        <item>Macet</item>
-        <item>Ramai Lancar</item>
-        <item>Lancar</item>
-        <item>Kecelakaan</item>
-    </string-array>
+    <string name="option_kondisi">Option Condition</string>
 
-    <string name="option_wilayah">Pilih Wilayah</string>
     <string name="txtKondisi">Condition</string>
     <string name="txtWilayah">Region</string>
-    <string name="txtKomentar">Komentar...</string>
     <string name="txtJalan">Road</string>
     <string name="txtNamaJalan">Waiting for Roads..</string>
-    <string name="my_location">my location</string>
-    <string name="sync">sync</string>
-    <string-array name="object_wilayah">
-        <item>Surabaya Timur</item>
-        <item>Surabaya Barat</item>
-        <item>Surabaya Selatan</item>
-        <item>Surabaya Utara</item>
-        <item>Surabaya Pusat</item>
-    </string-array>
+    <string name="my_location">My Location</string>
+    <string name="sync">Sync</string>
+    <string name="txtNamaAplikasi">Qferiz Traffic Jam</string>
+    <string name="txtVersiAplikasi">Version : 1.0.0</string>
+    <string name="txtProfile">Profile</string>
+    <string name="subtitle_nbi_ket">NBI :</string>
+    <string name="txtNBI">461103610</string>
+    <string name="txtNama">Rizki Yuniardi</string>
+    <string name="subtitle_fakultas_ket">Faculty :</string>
+    <string name="txtFakultas">Engineering</string>
+    <string name="txtJurusan">Informatics</string>
+    <string name="txtNamaJudulTA">MAPPING INFORMATION SYSTEM BASED TRAFFIC JAM ON ANDROID</string>
+    <string name="txtDeskripsiTA">Description Essay</string>
+    <string name="txtNamaDeskripsiTA">Congestion on the roads, especially major cities in Indonesia such as
+         Surabaya is increasingly severe, increasing the volume of the vehicle is not comparable
+         the road conditions are relatively fixed. Therefore it needs a system that
+         provide information about the condition of the roads to be used by the user reference highway
+         in determining the path that will be used to get to the destination.
+
+         To the writer wants to create an information system that provides information about the condition of the highway
+         to road users which can be accessed through a mobile phone / smartphone based on Android
+         as a reference in determining the users of the road to avoid road congestion
+         which occurred on a road.
+
+    </string>
+
+    <string name="option_wilayah">Option Region</string>
+    <string name="subtitle_info_ket">Time :</string>
+    <string name="subtitle_info_maps_ket">Location :</string>
+    <string name="subtitle_jurusan_ket">Study Program :</string>
+    <string name="subtitle_nama_ket">Name :</string>
+    <string name="title_activity_activity_take_photo">ActivityTakePhoto</string>
+    <string name="title_kondisi">Condition</string>
+    <string name="txtJudulTA">Title Of Essay</string>
+    <string name="txtKomentar">Please Comment..</string>
+    <string name="txtCopyrightAplikasi">© Juny 2015 - Rizki Yuniardi All rights reserved</string>
+    <string name="subtitle_universitas_ket">University :</string>
+    <string name="txtUniversitas">17 Agustus 1945 Surabaya (UNTAG)</string>
+    <string name="subtitle_latitude_ket">Lat :</string>
+    <string name="subtitle_longitude_ket">Long :</string>
+    <string name="txtKecamatan">Sub-District</string>
+    <string name="txtNamaKecamatan">Waiting Sub-District..</string>
+    <string name="txtKota">City</string>
+    <string name="txtNamaKota">Waiting City..</string>
+    <string name="txtPropinsi">Region</string>
+    <string name="txtNamaPropinsi">Waiting Region..</string>
+    <string name="txtNegara">Country</string>
+    <string name="txtNamaNegara">Waiting Country..</string>
+    <string name="txtMacet">Jammed</string>
+    <string name="txtRamaiLancar">Current Crowded</string>
+    <string name="txtLancar">Smooth</string>
+    <string name="txtKecelakaan">Accident</string>
 
 </resources>
