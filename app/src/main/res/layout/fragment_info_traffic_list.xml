@@ -23,7 +23,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_marginTopBottom"
+        android:layout_marginBottom="@dimen/fab_marginTopBottom"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
         android:src="@drawable/ic_action_add"
         app:fabSize="normal" />
 
