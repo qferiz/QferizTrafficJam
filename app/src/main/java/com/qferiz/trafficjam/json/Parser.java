@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import static com.qferiz.trafficjam.callback.Keys.EndpointInfoTraffic.KEY_ID_LOKASI;
 import static com.qferiz.trafficjam.callback.Keys.EndpointInfoTraffic.KEY_INFO_LOKASI;
+import static com.qferiz.trafficjam.callback.Keys.EndpointInfoTraffic.KEY_KOMENTAR;
 import static com.qferiz.trafficjam.callback.Keys.EndpointInfoTraffic.KEY_KONDISI_JALAN;
 import static com.qferiz.trafficjam.callback.Keys.EndpointInfoTraffic.KEY_LATITUDE;
 import static com.qferiz.trafficjam.callback.Keys.EndpointInfoTraffic.KEY_LOKASI_FOTO;
@@ -45,6 +46,7 @@ public class Parser {
                     String waktu = Constants.NA;
                     String namaFileFoto = Constants.NA;
                     String lokasiFoto = Constants.NA;
+                    String komentar = Constants.NA;
 
                     JSONObject currentTraffic = arrayTraffic.getJSONObject(i);
 
@@ -98,11 +100,17 @@ public class Parser {
                         lokasiFoto = currentTraffic.getString(KEY_LOKASI_FOTO);
                     }
 
+                    // ambil Komentar pada pada Current Traffic (record yg aktif)
+                    if (UtilsJson.contains(currentTraffic, KEY_KOMENTAR)) {
+                        komentar = currentTraffic.getString(KEY_KOMENTAR);
+                    }
+
+
                     TrafficJam mTrafficJam = new TrafficJam();
                     mTrafficJam.setId_info_lokasi(idInfoLokasi);
                     mTrafficJam.setNohp(noHp);
                     mTrafficJam.setLongitude(longitude);
-                    mTrafficJam.setLatittude(latitude);
+                    mTrafficJam.setLatitude(latitude);
                     mTrafficJam.setNama_jalan(namaJalan);
                     mTrafficJam.setNama_wilayah(namaWilayah);
                     mTrafficJam.setKondisi(kondisiJalan);
@@ -128,6 +136,7 @@ public class Parser {
                     mTrafficJam.setWaktu(waktu);
                     mTrafficJam.setNama_file_foto(namaFileFoto);
                     mTrafficJam.setLokasi_file_foto(lokasiFoto);
+                    mTrafficJam.setKomentar(komentar);
 
                     if (idInfoLokasi != -1 && !longitude.equals(Constants.NA)) {
                         listTraffic.add(mTrafficJam);

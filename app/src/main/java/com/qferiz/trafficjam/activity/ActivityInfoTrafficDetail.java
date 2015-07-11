@@ -1,12 +1,15 @@
 package com.qferiz.trafficjam.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +25,18 @@ public class ActivityInfoTrafficDetail extends AppCompatActivity {
     public static final String EXTRA_LATITTUDE = "info_latittude";
     public static final String EXTRA_NAMA_WILAYAH = "info_nama_wilayah";
     public static final String EXTRA_LOKASI_FILE_FOTO = "info_lokasi_file_foto";
-
+    public static final String EXTRA_KOMENTAR = "info_komentar";
+    private Context mContext;
+    private String strInfoNamaJalan = "info_nama_jalan";
+    private String strInfoWaktu = "info_waktu";
+    private String strInfoKondisi = "info_kondisi";
+    private String strInfoFoto = "info_foto";
+    private String strLongitude = "info_longitude";
+    private String strLatitude = "info_latitude";
+    private String strNamaWilayah = "info_nama_wilayah";
+    private String strLokasiFileFoto = "info_lokasi_file_foto";
+    private String strKomentar = "info_komentar";
+    private TextView mInfoWaktu, mLongitude, mLatitude, mInfoKondisi, mNamaWilayah, mKomentar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,44 +46,73 @@ public class ActivityInfoTrafficDetail extends AppCompatActivity {
         Intent mIntent = getIntent();
 //        Bundle extras = mIntent.getExtras();
 //        if (extras != null) {
-        final String strInfoNamaJalan = mIntent.getStringExtra(EXTRA_NAMA_JALAN);
-        final String strInfoWaktu = mIntent.getStringExtra(EXTRA_WAKTU);
-        final String strInfoKondisi = mIntent.getStringExtra(EXTRA_KONDISI);
-        final String strInfoFoto = mIntent.getStringExtra(EXTRA_FOTO);
-        final String strLongitude = mIntent.getStringExtra(EXTRA_LONGITUDE);
-        final String strLatittude = mIntent.getStringExtra(EXTRA_LATITTUDE);
-        final String strNamaWilayah = mIntent.getStringExtra(EXTRA_NAMA_WILAYAH);
-        final String strLokasiFileFoto = mIntent.getStringExtra(EXTRA_LOKASI_FILE_FOTO);
+        strInfoNamaJalan = mIntent.getStringExtra(EXTRA_NAMA_JALAN);
+        strInfoWaktu = mIntent.getStringExtra(EXTRA_WAKTU);
+        strInfoKondisi = mIntent.getStringExtra(EXTRA_KONDISI);
+        strInfoFoto = mIntent.getStringExtra(EXTRA_FOTO);
+        strLatitude = mIntent.getStringExtra(EXTRA_LATITTUDE);
+        strLongitude = mIntent.getStringExtra(EXTRA_LONGITUDE);
+        strNamaWilayah = mIntent.getStringExtra(EXTRA_NAMA_WILAYAH);
+        strLokasiFileFoto = mIntent.getStringExtra(EXTRA_LOKASI_FILE_FOTO);
+        strKomentar = mIntent.getStringExtra(EXTRA_KOMENTAR);
 
 //        }
 
         // Menampilkan waktu & koordinat
-        TextView mInfoWaktu = (TextView) findViewById(R.id.subtitle_info);
+        mInfoWaktu = (TextView) findViewById(R.id.subtitle_waktu_ket);
         mInfoWaktu.setText(strInfoWaktu);
 
-        TextView mLongitude = (TextView) findViewById(R.id.subtitle_info_maps);
-        mLongitude.setText(strLongitude + ", " + strLatittude);
+        mLatitude = (TextView) findViewById(R.id.txtLatitude);
+        mLatitude.setText(strLatitude);
 
-        TextView mInfoKondisi = (TextView) findViewById(R.id.subtitle_kondisi);
+        mLongitude = (TextView) findViewById(R.id.txtLongitude);
+        mLongitude.setText(strLongitude);
+
+        mInfoKondisi = (TextView) findViewById(R.id.subtitle_kondisi);
         mInfoKondisi.setText(strInfoKondisi);
 
-        TextView mNamaWilayah = (TextView) findViewById(R.id.subtitle_keterangan);
-        mNamaWilayah.setText(strNamaWilayah);
+        mKomentar = (TextView) findViewById(R.id.subtitle_komentar);
+        mKomentar.setText(strKomentar);
 
-        final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
-            assert getSupportActionBar() != null;
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        setupToolbar();
 
         CollapsingToolbarLayout mCollapsingToolbarLayout =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
 
         mCollapsingToolbarLayout.setTitle(strInfoNamaJalan);
 
+        setupFAB();
+
         loadBackdrop(strInfoFoto);
 
+    }
+
+    private void setupToolbar() {
+        final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            assert getSupportActionBar() != null;
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    private void setupFAB() {
+        FloatingActionButton mFAB = (FloatingActionButton) findViewById(R.id.fab_infotraffic_detail);
+        mFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mIntent = new Intent(getApplicationContext(), ActivityInfoTrafficMapsDetail.class);
+                mIntent.putExtra(ActivityInfoTrafficMapsDetail.EXTRA_NAMA_JALAN, strInfoNamaJalan);
+                mIntent.putExtra(ActivityInfoTrafficMapsDetail.EXTRA_WAKTU, strInfoWaktu);
+                mIntent.putExtra(ActivityInfoTrafficMapsDetail.EXTRA_KONDISI, strInfoKondisi);
+                mIntent.putExtra(ActivityInfoTrafficMapsDetail.EXTRA_FOTO, strInfoFoto);
+                mIntent.putExtra(ActivityInfoTrafficMapsDetail.EXTRA_LATITTUDE, strLatitude);
+                mIntent.putExtra(ActivityInfoTrafficMapsDetail.EXTRA_LONGITUDE, strLongitude);
+                mIntent.putExtra(ActivityInfoTrafficMapsDetail.EXTRA_KOMENTAR, strKomentar);
+
+                startActivity(mIntent);
+            }
+        });
     }
 
     private void loadBackdrop(String urlFoto) {

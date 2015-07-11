@@ -32,7 +32,7 @@ public class TrafficJamDB {
         }
 
         // create a sql prepared statement
-        String sql = " INSERT INTO " + TrafficHelper.TABLE_INFO_TRAFFIC + " VALUES (?,?,?,?,?,?,?,?,?,?);";
+        String sql = " INSERT INTO " + TrafficHelper.TABLE_INFO_TRAFFIC + " VALUES (?,?,?,?,?,?,?,?,?,?,?);";
         SQLiteStatement statement = mDatabase.compileStatement(sql);
         mDatabase.beginTransaction();
         for (int i = 0; i < listTraffic.size(); i++) {
@@ -40,14 +40,15 @@ public class TrafficJamDB {
             statement.clearBindings();
             // For a given coloumn index, simply bind the data to be put inside that index
             statement.bindString(2, currentTraffic.getNohp());
-            statement.bindString(3, currentTraffic.getLongitude());
-            statement.bindString(4, currentTraffic.getLatittude());
+            statement.bindString(3, currentTraffic.getLatitude());
+            statement.bindString(4, currentTraffic.getLongitude());
             statement.bindString(5, currentTraffic.getNama_jalan());
             statement.bindString(6, currentTraffic.getNama_wilayah());
             statement.bindString(7, currentTraffic.getKondisi());
             statement.bindString(8, currentTraffic.getWaktu());
             statement.bindString(9, currentTraffic.getNama_file_foto());
             statement.bindString(10, currentTraffic.getLokasi_file_foto());
+            statement.bindString(11, currentTraffic.getKomentar());
             L.m("Inserting entry " + i);
             statement.execute();
         }
@@ -65,14 +66,15 @@ public class TrafficJamDB {
         // Get a list of coloumn to be retrieved, we need all of them
         String[] columns = {TrafficHelper.COLUMN_UID,
                 TrafficHelper.COLUMN_NOHP,
+                TrafficHelper.COLUMN_LATITUDE,
                 TrafficHelper.COLUMN_LONGITUDE,
-                TrafficHelper.COLUMN_LATITTUDE,
                 TrafficHelper.COLUMN_NAMA_JALAN,
                 TrafficHelper.COLUMN_NAMA_WILAYAH,
                 TrafficHelper.COLUMN_KONDISI,
                 TrafficHelper.COLUMN_WAKTU,
                 TrafficHelper.COLUMN_NAMA_FILE_FOTO,
-                TrafficHelper.COLUMN_URL_LOKASI_FILE_FOTO
+                TrafficHelper.COLUMN_URL_LOKASI_FILE_FOTO,
+                TrafficHelper.COLUMN_KOMENTAR
         };
 
         Cursor mCursor = mDatabase.query(TrafficHelper.TABLE_INFO_TRAFFIC, columns, null, null, null, null, null);
@@ -84,14 +86,15 @@ public class TrafficJamDB {
                 // Each step is a 2 part process, find the index of the columns first, find the data of that columns using
                 // that index and finally set our a blank mMovie object to contain our data
                 mTrafficJam.setNohp(mCursor.getString(mCursor.getColumnIndex(TrafficHelper.COLUMN_NOHP)));
+                mTrafficJam.setLatitude(mCursor.getString(mCursor.getColumnIndex(TrafficHelper.COLUMN_LATITUDE)));
                 mTrafficJam.setLongitude(mCursor.getString(mCursor.getColumnIndex(TrafficHelper.COLUMN_LONGITUDE)));
-                mTrafficJam.setLatittude(mCursor.getString(mCursor.getColumnIndex(TrafficHelper.COLUMN_LATITTUDE)));
                 mTrafficJam.setNama_jalan(mCursor.getString(mCursor.getColumnIndex(TrafficHelper.COLUMN_NAMA_JALAN)));
                 mTrafficJam.setNama_wilayah(mCursor.getString(mCursor.getColumnIndex(TrafficHelper.COLUMN_NAMA_WILAYAH)));
                 mTrafficJam.setKondisi(mCursor.getString(mCursor.getColumnIndex(TrafficHelper.COLUMN_KONDISI)));
                 mTrafficJam.setWaktu(mCursor.getString(mCursor.getColumnIndex(TrafficHelper.COLUMN_WAKTU)));
                 mTrafficJam.setNama_file_foto(mCursor.getString(mCursor.getColumnIndex(TrafficHelper.COLUMN_NAMA_FILE_FOTO)));
                 mTrafficJam.setLokasi_file_foto(mCursor.getString(mCursor.getColumnIndex(TrafficHelper.COLUMN_URL_LOKASI_FILE_FOTO)));
+                mTrafficJam.setKomentar(mCursor.getString(mCursor.getColumnIndex(TrafficHelper.COLUMN_KOMENTAR)));
                 // Add the movie to the list of movie object which we plan to return
                 L.m("Getting TrafficJam Object " + mTrafficJam);
                 listTraffic.add(mTrafficJam);
@@ -113,25 +116,27 @@ public class TrafficJamDB {
         private static final String TABLE_INFO_TRAFFIC = "tb_info_traffic";
         private static final String COLUMN_UID = "_id";
         private static final String COLUMN_NOHP = "nohp";
+        private static final String COLUMN_LATITUDE = "latitude";
         private static final String COLUMN_LONGITUDE = "longitude";
-        private static final String COLUMN_LATITTUDE = "latittude";
         private static final String COLUMN_NAMA_JALAN = "nama_jalan";
         private static final String COLUMN_NAMA_WILAYAH = "nama_wilayah";
         private static final String COLUMN_KONDISI = "kondisi";
         private static final String COLUMN_WAKTU = "waktu";
         private static final String COLUMN_NAMA_FILE_FOTO = "nama_file_foto";
         private static final String COLUMN_URL_LOKASI_FILE_FOTO = "url_lokasi_file_foto";
+        private static final String COLUMN_KOMENTAR = "komentar";
         private static final String CREATE_TABLE_INFO_TRAFFIC = "CREATE TABLE " + TABLE_INFO_TRAFFIC + " (" +
                 COLUMN_UID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COLUMN_NOHP + " TEXT," +
+                COLUMN_LATITUDE + " TEXT," +
                 COLUMN_LONGITUDE + " TEXT," +
-                COLUMN_LATITTUDE + " TEXT," +
                 COLUMN_NAMA_JALAN + " TEXT," +
                 COLUMN_NAMA_WILAYAH + " TEXT," +
                 COLUMN_KONDISI + " TEXT," +
                 COLUMN_WAKTU + " TEXT," +
                 COLUMN_NAMA_FILE_FOTO + " TEXT," +
-                COLUMN_URL_LOKASI_FILE_FOTO + " TEXT" +
+                COLUMN_URL_LOKASI_FILE_FOTO + " TEXT," +
+                COLUMN_KOMENTAR + " TEXT" +
                 ");";
 
         public TrafficHelper(Context context) {
@@ -158,11 +163,7 @@ public class TrafficJamDB {
 
             } catch (SQLiteException exception) {
                 L.t(mContext, "SQLite Error OnUpgrade : " + exception);
-
-
             }
-
-
         }
     }
 

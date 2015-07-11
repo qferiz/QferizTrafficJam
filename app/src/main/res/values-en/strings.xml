@@ -62,7 +62,7 @@ to road users which can be accessed through a mobile phone / smartphone based on
     </string>
 
     <string name="option_wilayah">Option Region</string>
-    <string name="subtitle_info_ket">Time :</string>
+    <string name="subtitle_info_ket">Waiting Time..</string>
     <string name="subtitle_info_maps_ket">Location :</string>
     <string name="subtitle_jurusan_ket">Study Program :</string>
     <string name="subtitle_nama_ket">Name :</string>
@@ -90,5 +90,11 @@ to road users which can be accessed through a mobile phone / smartphone based on
     <string name="subtitle_email_ket">Email :</string>
     <string name="subtitle_phone_ket">Phone :</string>
     <string name="txtPhoneNumber">+6285257004040</string>
+    <string name="title_waktu">Time</string>
+    <string name="subtitle_waktu_ket">Waiting Time..</string>
+    <string name="title_lokasi">Location</string>
+    <string name="subtitle_lokasi_lat">Lat :</string>
+    <string name="title_komentar">Comment</string>
+    <string name="subtitle_komentar">Waiting Comment..</string>
 
 </resources>

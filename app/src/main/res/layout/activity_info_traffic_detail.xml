@@ -74,69 +74,105 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/card_margin">
 
+                <LinearLayout
+                    style="@style/Widget.CardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/title_waktu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_waktu"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorInfoSecondaryText" />
+
+                    <TextView
+                        android:id="@+id/subtitle_waktu_ket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/subtitle_waktu_ket"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorInfoPrimaryText" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_margin">
+
                 <RelativeLayout
                     style="@style/Widget.CardContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/title_info"
+                        android:id="@+id/title_lokasi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/title_info"
-                        android:layout_alignParentTop="true"
+                        android:text="@string/title_lokasi"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@color/colorPrimaryDark" />
 
                     <View
                         android:id="@+id/line"
                         android:layout_width="match_parent"
-                        android:layout_below="@+id/title_info"
                         android:layout_height="1dp"
+                        android:layout_below="@+id/title_lokasi"
                         android:background="@color/colorInfoSecondaryText" />
 
                     <TextView
-                        android:id="@+id/subtitle_info_ket"
+                        android:id="@+id/subtitle_lokasi_lat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/line"
                         android:layout_alignParentLeft="true"
-                        android:text="@string/subtitle_info_ket"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorInfoPrimaryText" />
+                        android:layout_below="@+id/line"
+                        android:text="@string/subtitle_lokasi_lat"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
 
                     <TextView
-                        android:id="@+id/subtitle_info"
+                        android:id="@+id/txtLatitude"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/line"
+                        android:layout_toEndOf="@+id/subtitle_lokasi_lat"
+                        android:layout_toRightOf="@+id/subtitle_lokasi_lat"
                         android:gravity="right"
-                        android:layout_toRightOf="@+id/subtitle_info_ket"
-                        android:layout_toEndOf="@+id/subtitle_info_ket"
-                        android:text="@string/info_traffic"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorInfoPrimaryText" />
+                        android:text="@string/txtLatitude"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
+
 
                     <TextView
-                        android:id="@+id/subtitle_info_maps_ket"
+                        android:id="@+id/subtitle_lokasi_long"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/subtitle_info_ket"
                         android:layout_alignParentLeft="true"
-                        android:text="@string/subtitle_info_maps_ket"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorInfoPrimaryText" />
+                        android:layout_below="@+id/subtitle_lokasi_lat"
+                        android:text="@string/subtitle_longitude_ket"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
 
                     <TextView
-                        android:id="@+id/subtitle_info_maps"
-                        android:layout_below="@+id/subtitle_info_ket"
+                        android:id="@+id/txtLongitude"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/info_traffic"
-                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/txtLatitude"
+                        android:layout_toEndOf="@+id/subtitle_lokasi_long"
+                        android:layout_toRightOf="@+id/subtitle_lokasi_long"
                         android:gravity="right"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorInfoPrimaryText" />
+                        android:text="@string/txtLongitude"
+                        android:textColor="@color/colorInfoPrimaryText"
+                        android:textSize="@dimen/sub_subtitle_size_font" />
 
                 </RelativeLayout>
 
@@ -188,10 +224,10 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/title_keterangan"
+                        android:id="@+id/title_komentar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/title_keterangan"
+                        android:text="@string/title_komentar"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@color/colorPrimaryDark" />
 
@@ -201,10 +237,10 @@
                         android:background="@color/colorInfoSecondaryText" />
 
                     <TextView
-                        android:id="@+id/subtitle_keterangan"
+                        android:id="@+id/subtitle_komentar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/info_traffic"
+                        android:text="@string/subtitle_komentar"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/colorInfoSecondaryText" />
 

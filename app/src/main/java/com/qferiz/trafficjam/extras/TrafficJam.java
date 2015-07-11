@@ -11,7 +11,7 @@ public class TrafficJam implements Parcelable {
     private int id_info_lokasi;
     private String nohp;
     private String longitude;
-    private String latittude;
+    private String latitude;
     private String nama_jalan;
     private String nama_wilayah;
     private String kondisi;
@@ -19,29 +19,32 @@ public class TrafficJam implements Parcelable {
     private String waktu;
     private String nama_file_foto;
     private String lokasi_file_foto;
+    private String komentar;
 
     public TrafficJam(int id_info_lokasi,
                       String nohp,
                       String longitude,
-                      String latittude,
+                      String latitude,
                       String nama_jalan,
                       String nama_wilayah,
                       String kondisi,
 //                      Date waktu,
                       String waktu,
                       String nama_file_foto,
-                      String lokasi_file_foto) {
+                      String lokasi_file_foto,
+                      String komentar) {
         super();
         this.id_info_lokasi = id_info_lokasi;
         this.nohp = nohp;
         this.longitude = longitude;
-        this.latittude = latittude;
+        this.latitude = latitude;
         this.nama_jalan = nama_jalan;
         this.nama_wilayah = nama_wilayah;
         this.kondisi = kondisi;
         this.waktu = waktu;
         this.nama_file_foto = nama_file_foto;
         this.lokasi_file_foto = lokasi_file_foto;
+        this.komentar = komentar;
 
     }
 
@@ -50,7 +53,7 @@ public class TrafficJam implements Parcelable {
 //        this.id_info_lokasi = 0;
 //        this.nohp = "";
 //        this.longitude = "";
-//        this.latittude = "";
+//        this.latitude = "";
 //        this.nama_jalan = "";
 //        this.nama_wilayah = "";
 //        this.kondisi = "";
@@ -63,7 +66,7 @@ public class TrafficJam implements Parcelable {
         this.id_info_lokasi = input.readInt();
         this.nohp = input.readString();
         this.longitude = input.readString();
-        this.latittude = input.readString();
+        this.latitude = input.readString();
         this.nama_jalan = input.readString();
         this.nama_wilayah = input.readString();
         this.kondisi = input.readString();
@@ -72,6 +75,7 @@ public class TrafficJam implements Parcelable {
         this.waktu = input.readString();
         this.nama_file_foto = input.readString();
         this.lokasi_file_foto = input.readString();
+        this.komentar = input.readString();
     }
 
     public int getId_info_lokasi() {
@@ -90,6 +94,14 @@ public class TrafficJam implements Parcelable {
         this.nohp = nohp;
     }
 
+    public String getKomentar() {
+        return komentar;
+    }
+
+    public void setKomentar(String komentar) {
+        this.komentar = komentar;
+    }
+
     public String getLongitude() {
         return longitude;
     }
@@ -98,12 +110,12 @@ public class TrafficJam implements Parcelable {
         this.longitude = longitude;
     }
 
-    public String getLatittude() {
-        return latittude;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setLatittude(String latittude) {
-        this.latittude = latittude;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
     public String getNama_jalan() {
@@ -159,13 +171,14 @@ public class TrafficJam implements Parcelable {
         return "\nID Info Lokasi : " + id_info_lokasi +
                 "\nNo Hp : " + nohp +
                 "\nLongitude : " + longitude +
-                "\nLatitude : " + latittude +
+                "\nLatitude : " + latitude +
                 "\nNama Jalan : " + nama_jalan +
                 "\nNama Wilayah : " + nama_wilayah +
                 "\nKondisi : " + kondisi +
                 "\nWaktu : " + waktu +
                 "\nNama File Foto : " + nama_file_foto +
                 "\nLokasi Foto : " + lokasi_file_foto +
+                "\nKomentar : " + komentar +
                 "\n";
     }
 
@@ -179,7 +192,7 @@ public class TrafficJam implements Parcelable {
         parcel.writeInt(id_info_lokasi);
         parcel.writeString(nohp);
         parcel.writeString(longitude);
-        parcel.writeString(latittude);
+        parcel.writeString(latitude);
         parcel.writeString(nama_jalan);
         parcel.writeString(nama_wilayah);
         parcel.writeString(kondisi);
@@ -187,6 +200,7 @@ public class TrafficJam implements Parcelable {
         parcel.writeString(waktu);
         parcel.writeString(nama_file_foto);
         parcel.writeString(lokasi_file_foto);
+        parcel.writeString(komentar);
     }
 
     public static final Parcelable.Creator<TrafficJam> CREATOR = new Parcelable.Creator<TrafficJam>() {

@@ -74,9 +74,10 @@ public class AdapterInfoTrafficJam extends RecyclerView.Adapter<AdapterInfoTraff
         loadImages(urlInfoFoto, holder);
 
         final String mLongitude = currentTrafficJam.getLongitude();
-        final String mLatittude = currentTrafficJam.getLatittude();
+        final String mLatittude = currentTrafficJam.getLatitude();
         final String mNamaWilayah = currentTrafficJam.getNama_wilayah();
         final String mLokasiFoto = currentTrafficJam.getLokasi_file_foto();
+        final String mKomentar = currentTrafficJam.getKomentar();
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +92,7 @@ public class AdapterInfoTrafficJam extends RecyclerView.Adapter<AdapterInfoTraff
                 mIntent.putExtra(ActivityInfoTrafficDetail.EXTRA_LATITTUDE, mLatittude);
                 mIntent.putExtra(ActivityInfoTrafficDetail.EXTRA_NAMA_WILAYAH, mNamaWilayah);
                 mIntent.putExtra(ActivityInfoTrafficDetail.EXTRA_LOKASI_FILE_FOTO, mLokasiFoto);
+                mIntent.putExtra(ActivityInfoTrafficDetail.EXTRA_KOMENTAR, mKomentar);
 
                 mContext.startActivity(mIntent);
             }

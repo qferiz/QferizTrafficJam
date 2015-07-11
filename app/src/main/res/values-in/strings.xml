@@ -19,7 +19,7 @@
     <string name="option_kondisi">Pilih Kondisi</string>
     <string name="option_wilayah">Pilih Wilayah</string>
     <string name="subtitle_fakultas_ket">Fakultas :</string>
-    <string name="subtitle_info_ket">Waktu :</string>
+    <string name="subtitle_info_ket">Waiting Time..</string>
     <string name="subtitle_info_maps_ket">Lokasi :</string>
     <string name="subtitle_jurusan_ket">Program Studi :</string>
     <string name="subtitle_nama_ket">Nama :</string>
@@ -79,4 +79,10 @@
     <string name="subtitle_email_ket">Email :</string>
     <string name="subtitle_phone_ket">No. Telpon :</string>
     <string name="txtPhoneNumber">+6285257004040</string>
+    <string name="subtitle_waktu_ket">Waiting Time..</string>
+    <string name="title_lokasi">Lokasi</string>
+    <string name="title_waktu">Waktu</string>
+    <string name="subtitle_lokasi_lat">Lat :</string>
+    <string name="title_komentar">Komentar</string>
+    <string name="subtitle_komentar">Menunggu Komentar..</string>
 </resources>

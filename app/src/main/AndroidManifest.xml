@@ -35,8 +35,8 @@
 
     <application
         android:name=".extras.MyApplication"
-        android:icon="@mipmap/ic_launcher"
         android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/MyTheme" >
         <activity
@@ -90,6 +90,15 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".activity.ActivityInfoTrafficMapsDetail"
+            android:label="@string/title_activity_activity_info_traffic_maps_detail"
+            android:parentActivityName=".activity.ActivityMain">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.qferiz.trafficjam.activity.ActivityMain" />
+        </activity>
     </application>
 
 </manifest>
