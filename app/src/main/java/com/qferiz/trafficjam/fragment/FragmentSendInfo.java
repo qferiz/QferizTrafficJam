@@ -52,6 +52,7 @@ public class FragmentSendInfo extends Fragment {
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 60000; // dalam Miliseconds
     private static final String TAG_REFRESH = "REFRESH";
 
+    public Context mContext;
     private Spinner mSpinnerKondisi;
     //    private Spinner mSpinnerWilayah;
     private View mView;
@@ -63,13 +64,37 @@ public class FragmentSendInfo extends Fragment {
     protected FragmentActivity mFragmentActivity;
     private Menu mMenu;
 
+    private String getExtraLatitude, getExtraLongitude, getExtraNamaJalan, getExtraNamaKecamatan,
+            getExtraKota, getExtraPropinsi, getExtraNegara = "";
+
+    public static final String EXTRA_LATITUDE = "send_latitude";
+    public static final String EXTRA_LONGITUDE = "send_longitude";
+    public static final String EXTRA_NAMA_JALAN = "send_nama_jalan";
+    public static final String EXTRA_NAMA_KECAMATAN = "send_nama_kecamatan";
+    public static final String EXTRA_KOTA = "send_kota";
+    public static final String EXTRA_PROPINSI = "send_propinsi";
+    public static final String EXTRA_NEGARA = "send_negara";
+
+
     public FragmentSendInfo() {
         // Required empty public constructor
     }
 
+   /* public static FragmentSendInfo newInstance() {
+
+        *//*Bundle args = new Bundle();
+
+        FragmentSendInfo fragment = new FragmentSendInfo();
+        fragment.setArguments(args);
+        return fragment;*//*
+        return new FragmentSendInfo();
+    }*/
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+//        mContext = getActivity();
+//        ((ActivityMain) mContext).mFragmentCommunicator = this;
         mFragmentActivity = (FragmentActivity) activity;
     }
 
@@ -77,12 +102,34 @@ public class FragmentSendInfo extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Cek Value dari passing data Activity
+       /* if (savedInstanceState != null) {
+            getExtraLatitude = savedInstanceState.getString(EXTRA_LATITUDE);
+            getExtraLongitude = savedInstanceState.getString(EXTRA_LONGITUDE);
+            getExtraNamaJalan = savedInstanceState.getString(EXTRA_NAMA_JALAN);
+            getExtraNamaKecamatan = savedInstanceState.getString(EXTRA_NAMA_KECAMATAN);
+            getExtraKota = savedInstanceState.getString(EXTRA_KOTA);
+            getExtraPropinsi = savedInstanceState.getString(EXTRA_PROPINSI);
+            getExtraNegara = savedInstanceState.getString(EXTRA_NEGARA);
+        }*/
+
         setHasOptionsMenu(true);
 
         // Setting Location Manager
-        setupLocationManager();
+//        setupLocationManager();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+      /*  outState.putString(EXTRA_LATITUDE, getExtraLatitude);
+        outState.putString(EXTRA_LONGITUDE, getExtraLongitude);
+        outState.putString(EXTRA_NAMA_JALAN, getExtraNamaJalan);
+        outState.putString(EXTRA_NAMA_KECAMATAN, getExtraNamaKecamatan);
+        outState.putString(EXTRA_KOTA, getExtraKota);
+        outState.putString(EXTRA_PROPINSI, getExtraPropinsi);
+        outState.putString(EXTRA_NEGARA, getExtraNegara);*/
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,11 +138,14 @@ public class FragmentSendInfo extends Fragment {
 //        return inflater.inflate(R.layout.fragment_send_info, container, false);
         mView = inflater.inflate(R.layout.fragment_send_info, container, false);
 
+   /*     if (savedInstanceState != null){
+            // Read Data From ActivityMain
+            readData();
+        }*/
+
         if (mMenu != null) {
             mMenu.findItem(R.id.my_location).setVisible(false);
-
         }
-
 
         // Progress Retrieving Data
 //        showRetrievingData();
@@ -118,24 +168,6 @@ public class FragmentSendInfo extends Fragment {
             }
         });
 
-       /* mSpinnerWilayah = (Spinner) mView.findViewById(R.id.spinnerWilayah);
-        ArrayAdapter<CharSequence> mAdapterWilayah = ArrayAdapter.createFromResource(
-                getActivity(), R.array.object_wilayah, android.R.layout.simple_spinner_item);
-        mAdapterWilayah.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinnerWilayah.setAdapter(mAdapterWilayah);
-
-        mSpinnerWilayah.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                L.T(getActivity(), "Item Number Wilayah : " + position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-*/
        /* mButton = (Button) mView.findViewById(R.id.btnSend);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,15 +199,68 @@ public class FragmentSendInfo extends Fragment {
             }
         });
 
+//        setRetainInstance(true);
         return mView;
     }
+
+    /*private void readData() {
+
+        *//*Bundle mBundle = getActivity().getIntent().getExtras();
+        String strLatitude = mBundle.getString(EXTRA_LATITUDE);
+        String strLongitude = mBundle.getString(EXTRA_LONGITUDE);
+        String strNamaJalan = mBundle.getString(EXTRA_NAMA_JALAN);
+        String strNamaKecamatan = mBundle.getString(EXTRA_NAMA_KECAMATAN);
+        String strNamaKota = mBundle.getString(EXTRA_KOTA);
+        String strNamaPropinsi = mBundle.getString(EXTRA_PROPINSI);
+        String strNegara = mBundle.getString(EXTRA_NEGARA);*//*
+        Bundle mBundle = this.getArguments();
+
+        if (mBundle != null) {
+            String strLatitude = mBundle.getString("latitude");
+            String strLongitude = mBundle.getString("longitude");
+            String strNamaJalan = mBundle.getString("nama_jalan");
+            String strNamaKecamatan = mBundle.getString("nama_kecamatan");
+            String strNamaKota = mBundle.getString("nama_kota");
+            String strNamaPropinsi = mBundle.getString("nama_propinsi");
+            String strNegara = mBundle.getString("nama_negara");
+
+            mLatitude = (TextView) mView.findViewById(R.id.txtLatitude);
+            mLatitude.setText(strLatitude + ",");
+
+            mLongitude = (TextView) mView.findViewById(R.id.txtLongitude);
+            mLongitude.setText(strLongitude);
+
+            mRoads = (TextView) mView.findViewById(R.id.txtNamaJalan);
+            mRoads.setText(strNamaJalan);
+
+            mSubDistrict = (TextView) mView.findViewById(R.id.txtNamaKecamatan);
+            mSubDistrict.setText(strNamaKecamatan);
+
+            mCity = (TextView) mView.findViewById(R.id.txtNamaKota);
+            mCity.setText(strNamaKota);
+
+            mRegion = (TextView) mView.findViewById(R.id.txtNamaPropinsi);
+            mRegion.setText(strNamaPropinsi);
+
+            mCountry = (TextView) mView.findViewById(R.id.txtNamaNegara);
+            mCountry.setText(strNegara);
+        }
+
+    }*/
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        refresh();
 
-        setupLastKnownLocation();
+//        setupLastKnownLocation();
     }
+
+    /*public void init() {
+        mProgressDialog = new ProgressDialog(mContext);
+        mProgressDialog.setCancelable(true);
+
+    }*/
 
     public void refresh() {
         // Progress Retrieving Data
@@ -211,10 +296,10 @@ public class FragmentSendInfo extends Fragment {
 //        showProgress();
 
         // Setting Location Manager
-//        setupLocationManager();
+        setupLocationManager();
 
         // Setting LastKnownLocation
-//        setupLastKnownLocation();
+        setupLastKnownLocation();
 
         // Setting Location
         setupShowCurrentLocation();
@@ -308,13 +393,13 @@ public class FragmentSendInfo extends Fragment {
             GET_LATITUDE = mLocation.getLatitude();
             GET_LONGITUDE = mLocation.getLongitude();
 
-            String message = String.format(
+         /*   String message = String.format(
                     "Lokasi saat ini \n Latitude: %1$s \n Longitude: %2$s",
                     GET_LATITUDE, GET_LONGITUDE
             );
 
             Toast.makeText(getActivity(), message,
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_LONG).show();*/
 
             String strLatitude = Double.toString(GET_LATITUDE);
             String strLongitude = Double.toString(GET_LONGITUDE);
@@ -341,6 +426,76 @@ public class FragmentSendInfo extends Fragment {
 
     }
 
+   /* public void updateDataFragmentSendInfo(String latitude, String longitude, String namaJalan) {
+
+        getExtraLatitude = latitude;
+        getExtraLongitude = longitude;
+        getExtraNamaJalan = namaJalan;
+      *//*  getExtraNamaKecamatan = namaKecamatan;
+        getExtraKota = namaKota;
+        getExtraPropinsi = namaPropinsi;
+        getExtraNegara = namaNegara;*//*
+
+        mLatitude = (TextView) mView.findViewById(R.id.txtLatitude);
+        mLatitude.setText(getExtraLatitude + ",");
+
+        mLongitude = (TextView) mView.findViewById(R.id.txtLongitude);
+        mLongitude.setText(getExtraLongitude);
+
+        mRoads = (TextView) mView.findViewById(R.id.txtNamaJalan);
+        mRoads.setText(getExtraNamaJalan);
+
+    *//*    mSubDistrict = (TextView) mView.findViewById(R.id.txtNamaKecamatan);
+        mSubDistrict.setText(getExtraNamaKecamatan);
+
+        mCity = (TextView) mView.findViewById(R.id.txtNamaKota);
+        mCity.setText(getExtraKota);
+
+        mRegion = (TextView) mView.findViewById(R.id.txtNamaPropinsi);
+        mRegion.setText(getExtraPropinsi);
+
+        mCountry = (TextView) mView.findViewById(R.id.txtNamaNegara);
+        mCountry.setText(getExtraNegara);*//*
+    }
+*/
+    // Passing Data From Activity to Fragment
+    //FragmentCommunicator interface implementation
+//    @Override
+    /*public void passDataToFragment(String latitude, String longitude, String namaJalan,
+                                   String namaKecamatan, String namaKota,
+                                   String namaPropinsi, String namaNegara) {
+
+        getExtraLatitude = latitude;
+        getExtraLongitude = longitude;
+        getExtraNamaJalan = namaJalan;
+        getExtraNamaKecamatan = namaKecamatan;
+        getExtraKota = namaKota;
+        getExtraPropinsi = namaPropinsi;
+        getExtraNegara = namaNegara;
+
+        mLatitude = (TextView) mView.findViewById(R.id.txtLatitude);
+        mLatitude.setText(getExtraLatitude + ",");
+
+        mLongitude = (TextView) mView.findViewById(R.id.txtLongitude);
+        mLongitude.setText(getExtraLongitude);
+
+        mRoads = (TextView) mView.findViewById(R.id.txtNamaJalan);
+        mRoads.setText(getExtraNamaJalan);
+
+        mSubDistrict = (TextView) mView.findViewById(R.id.txtNamaKecamatan);
+        mSubDistrict.setText(getExtraNamaKecamatan);
+
+        mCity = (TextView) mView.findViewById(R.id.txtNamaKota);
+        mCity.setText(getExtraKota);
+
+        mRegion = (TextView) mView.findViewById(R.id.txtNamaPropinsi);
+        mRegion.setText(getExtraPropinsi);
+
+        mCountry = (TextView) mView.findViewById(R.id.txtNamaNegara);
+        mCountry.setText(getExtraNegara);
+
+    }*/
+
 
     private class MapsLocationListener implements LocationListener {
 
@@ -353,7 +508,7 @@ public class FragmentSendInfo extends Fragment {
             } catch (NullPointerException e){
 
             }*/
-            try {
+           /* try {
                 if (mLocation != null) {
                     String message = String.format(
                             "Deteksi Lokasi Baru \n Latitude: %2$s \n Longitude: %1$s",
@@ -364,7 +519,7 @@ public class FragmentSendInfo extends Fragment {
 
             } catch (NullPointerException e) {
                 e.printStackTrace();
-            }
+            }*/
 
         }
 
@@ -426,7 +581,10 @@ public class FragmentSendInfo extends Fragment {
         switch (item.getItemId()) {
             case R.id.my_location:
                 // Progress Retrieving Data
-                showRetrievingData();
+//                showRetrievingData();
+                showProgress();
+                refresh();
+                stopProgress();
                 return true;
 
             default:

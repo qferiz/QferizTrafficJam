@@ -11,6 +11,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.qferiz.trafficjam.R;
 
@@ -80,17 +81,22 @@ public class ActivityInfoTrafficMapsDetail extends FragmentActivity {
 
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();*/
 
-            mGoogleMap.addMarker(new MarkerOptions()
+            Marker mMarker = mGoogleMap.addMarker(new MarkerOptions()
                     .position(mLatLng)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                    .title("Kondisi : " + strInfoKondisi + ", " + "\nTanggal : " + strInfoWaktu).snippet(strInfoNamaJalan));
+                    .title("Kondisi : " + strInfoKondisi + ", " + "Tanggal : " + strInfoWaktu)
+                    .snippet(strInfoNamaJalan));
 
+            mMarker.showInfoWindow();
             mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 17));
+
         }
 
     }
 
-   /* private void setupToolbar() {
+
+
+    /*    private void setupToolbar() {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.submain_toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);

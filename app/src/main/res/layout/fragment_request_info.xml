@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_request_info"
     tools:context="com.qferiz.trafficjam.fragment.FragmentRequestInfo">
 
     <android.support.v4.widget.NestedScrollView

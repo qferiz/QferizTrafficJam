@@ -1,21 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_about"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.qferiz.trafficjam.activity.ActivityInfoTrafficMapsDetail">
 
-    <include layout="@layout/toolbar_quick_return" />
+    <include layout="@layout/toolbar" />
 
-</android.support.design.widget.CoordinatorLayout>
+    <fragment
+        android:id="@+id/mapTrafficDetail"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
--->
+
+
+</android.support.design.widget.CoordinatorLayout>-->
+
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mapTrafficDetail"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:name="com.google.android.gms.maps.SupportMapFragment" />
+    android:layout_height="match_parent" />
+
 
 
 
