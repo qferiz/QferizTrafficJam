@@ -43,9 +43,6 @@ import java.util.Locale;
 
 public class ActivityMain extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String SELECTED_ITEM_ID = "selectedId";
-    private static final String FIRST_TIME = "first_time";
-
     private static final String PREFERENCES_FILE = "trafficjam_settings";
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
@@ -71,7 +68,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
     private double GET_LATITUDE;
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 10; // dalam meter
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 60000; // dalam Miliseconds
-    private static final String TAG_REFRESH = "REFRESH";
+    private static final String TAG_REFRESH = "REFRESH_QFERIZ_TRAFFICJAM";
     private String getNamaJalan, getNamaKecamatan, getNamaKota, getNamaPropinsi, getNamaNegara,
             getLatitude, getLongitude = "";
 
@@ -501,7 +498,6 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putInt(SELECTED_ITEM_ID, mSelectedId);
         outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
     }
 

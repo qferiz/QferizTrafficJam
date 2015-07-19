@@ -36,7 +36,7 @@ public class ActivityTakePhoto extends AppCompatActivity {
 
     // Check if the user has a Camera
     private boolean hasCamera() {
-        return getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
+        return getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
     }
 
     public void launchCamera(View view) {

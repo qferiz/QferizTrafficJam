@@ -85,4 +85,5 @@
     <string name="subtitle_lokasi_lat">Lat :</string>
     <string name="title_komentar">Komentar</string>
     <string name="subtitle_komentar">Menunggu Komentar..</string>
+    <string name="title_activity_activity_info_traffic_maps_detail">ActivityInfoTrafficMapsDetail</string>
 </resources>

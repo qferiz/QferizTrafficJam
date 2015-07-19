@@ -2,9 +2,8 @@ package com.qferiz.trafficjam.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -15,7 +14,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.qferiz.trafficjam.R;
 
-public class ActivityInfoTrafficMapsDetail extends FragmentActivity {
+public class ActivityInfoTrafficMapsDetail extends AppCompatActivity {
     public static final String EXTRA_NAMA_JALAN = "info_traffic_jam";
     public static final String EXTRA_WAKTU = "info_waktu";
     public static final String EXTRA_KONDISI = "info_kondisi";
@@ -50,8 +49,6 @@ public class ActivityInfoTrafficMapsDetail extends FragmentActivity {
         mGoogleMap = mapFragment.getMap();
         mGoogleMap.setMyLocationEnabled(true);
 
-//        setupToolbar();
-
         Intent mIntent = getIntent();
 
         if (mIntent != null) {
@@ -68,19 +65,6 @@ public class ActivityInfoTrafficMapsDetail extends FragmentActivity {
 
             mLatLng = new LatLng(mGetLatittude, mGetLongitude);
 
-         /*   String message = String.format(
-                    "Data Info Traffic Maps " +
-                            "\n Nama Jalan : %1$s " +
-                            "\n Waktu : %2$s " +
-                            "\n Kondisi : %3$s" +
-                            "\n UrlFoto : %4$s" +
-                            "\n Latitude : %5$s" +
-                            "\n Longitude : %6$s",
-                    strInfoNamaJalan, strInfoWaktu, strInfoKondisi, strInfoFoto, strLongitude, strLatittude
-            );
-
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();*/
-
             Marker mMarker = mGoogleMap.addMarker(new MarkerOptions()
                     .position(mLatLng)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
@@ -88,24 +72,26 @@ public class ActivityInfoTrafficMapsDetail extends FragmentActivity {
                     .snippet(strInfoNamaJalan));
 
             mMarker.showInfoWindow();
+            mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
             mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 17));
-
         }
 
+        setupToolbar();
     }
 
 
-
-    /*    private void setupToolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.submain_toolbar);
+    private void setupToolbar() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_maps);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             assert getSupportActionBar() != null;
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(strInfoNamaJalan);
+            getSupportActionBar().setSubtitle(getResources().getString(R.string.txtKondisi) + " : " + strInfoKondisi);
         }
-    }*/
+    }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_info_traffic_maps_detail, menu);
@@ -125,5 +111,5 @@ public class ActivityInfoTrafficMapsDetail extends FragmentActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

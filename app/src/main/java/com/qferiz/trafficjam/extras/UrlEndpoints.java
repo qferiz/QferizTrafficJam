@@ -14,5 +14,6 @@ public class UrlEndpoints {
     public static final String URL_CHAR_AMEPERSAND = "&";
     public static final String URL_PARAM_API_KEY = "apikey=";
     public static final String URL_PARAM_LIMIT = "limit=";
+    // Directory name to store captured images and videos in Internal memori devices
     public static final String IMAGE_DIRECTORY_NAME = "Qferiz Traffic Jam";
 }

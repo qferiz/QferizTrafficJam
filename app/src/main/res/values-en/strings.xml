@@ -96,5 +96,6 @@ to road users which can be accessed through a mobile phone / smartphone based on
     <string name="subtitle_lokasi_lat">Lat :</string>
     <string name="title_komentar">Comment</string>
     <string name="subtitle_komentar">Waiting Comment..</string>
+    <string name="title_activity_activity_info_traffic_maps_detail">ActivityInfoTrafficMapsDetail</string>
 
 </resources>
