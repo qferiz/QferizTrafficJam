@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.qferiz.trafficjam.fragment.FragmentSendInfo">
 
-
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nested_scroll_send"
         android:layout_width="match_parent"
@@ -35,6 +34,14 @@
                     android:layout_height="225dp"
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/empty_photo_entry" />
+
+                <ImageButton
+                    android:id="@+id/imgBtnCancel"
+                    android:layout_toRightOf="@+id/imageLaLin"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:visibility="gone"
+                    android:background="@drawable/icon_cancel" />
 
             </RelativeLayout>
 
@@ -400,6 +407,8 @@
 
     </android.support.v4.widget.NestedScrollView>
 
+    <!-- Layout Take Option Picture From Camera or Gallery -->
+    <include layout="@layout/option_picture_reveal_animation" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabSendInfo"

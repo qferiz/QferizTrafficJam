@@ -70,13 +70,15 @@ public class TrafficJam implements Parcelable {
         this.nama_jalan = input.readString();
         this.nama_wilayah = input.readString();
         this.kondisi = input.readString();
-        long dateMillis = input.readLong();
+//        long dateMillis = input.readLong();
 //        this.waktu = (dateMillis == -1 ? null: new Date(dateMillis));
         this.waktu = input.readString();
         this.nama_file_foto = input.readString();
         this.lokasi_file_foto = input.readString();
         this.komentar = input.readString();
     }
+
+    //getters,setters
 
     public int getId_info_lokasi() {
         return id_info_lokasi;
@@ -204,6 +206,7 @@ public class TrafficJam implements Parcelable {
     }
 
     public static final Parcelable.Creator<TrafficJam> CREATOR = new Parcelable.Creator<TrafficJam>() {
+        @Override
         public TrafficJam createFromParcel(Parcel in) {
             return new TrafficJam(in);
         }

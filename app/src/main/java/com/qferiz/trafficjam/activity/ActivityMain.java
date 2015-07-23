@@ -321,48 +321,46 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
 
     private void getMyIdentityPhone() {
         TelephonyManager mTelephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-//        String IMSI = mTelephonyManager.getSubscriberId();
 
-        String deviceIdIMEI = mTelephonyManager.getDeviceId(); // Membaca IMEI pada Smartphone, Maybe Return NULL
+        // Untuk Tablet & SmartPhone, Membaca Android Device ID
+        String androidID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        // Membaca Hardware Serial Number HP
+        String serialNumberHP = Build.SERIAL;
+
+        // Maybe return NULL
+        // Membaca No HP pada Slot SIM 1
+        String phoneSerialNumber = mTelephonyManager.getLine1Number();
+
+        // Membaca IMEI pada Smartphone, Maybe Return NULL
+        String deviceIdIMEI = mTelephonyManager.getDeviceId();
+/*
         if (deviceIdIMEI.isEmpty() || deviceIdIMEI.equals("")
                 || deviceIdIMEI.trim().equals("null")
                 || deviceIdIMEI.trim().length() <= 0) {
             // Untuk Tablet - Membaca Android ID Hex 64 bit
             deviceIdIMEI = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         }
+*/
 
-        // Untuk Tablet
-//        String androidID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-
-        String phoneSerialNumber = mTelephonyManager.getLine1Number(); // Maybe return NULL
-        if (phoneSerialNumber.isEmpty() || phoneSerialNumber.equals("")
+        /*if (phoneSerialNumber.isEmpty() || phoneSerialNumber.equals("")
                 || phoneSerialNumber.trim().equals("null")
                 || phoneSerialNumber.trim().length() <= 0) {
 
             phoneSerialNumber = Build.SERIAL; // Serial Number HP
-        }
-
-//            phoneSerialNumber = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-
-
-        /*String serialNumberSIM = mTelephonyManager.getSimSerialNumber();
-        String osAndroid = mTelephonyManager.getDeviceSoftwareVersion();
-        String serialNumberHP = Build.SERIAL;*/
+        }*/
 
         String message = String.format(
                 "Data Identity HP Anda " +
-//                        "\n IMSI : %1$s " +
-                        "\n IMEI/Android ID : %1$s " +
-//                        "\n ANDROID ID : %3$s" +
-                        "\n NO HP/Serial Number HP : %2$s",
-//                        "\n SerialNumber SIM : %5$s" +
-//                        "\n OS Android : %6$s" +
-//                        "\n Serial Number HP : %6$s",
-//                IMSI, deviceIdIMEI, androidID, phoneNumber, serialNumberSIM, osAndroid, serialNumberHP
-                deviceIdIMEI, phoneSerialNumber
+                        "\n Android Device ID : %1$s " +
+                        "\n Hardware Serial Number HP : %2$s" +
+                        "\n No HP : %3$s" +
+                        "\n IMEI : %4$s",
+
+                androidID, serialNumberHP, phoneSerialNumber, deviceIdIMEI
         );
 
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     private void showDrawer() {
@@ -400,9 +398,9 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
             return true;
         }
 
-        if (id == R.id.ActivityTakePhoto) {
+       /* if (id == R.id.ActivityTakePhoto) {
             startActivity(new Intent(this, ActivityTakePhoto.class));
-        }
+        }*/
 
         if (id == R.id.sync) {
             getMyIdentityPhone();

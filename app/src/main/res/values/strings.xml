@@ -69,7 +69,7 @@ to road users which can be accessed through a mobile phone / smartphone based on
     <string name="title_activity_activity_take_photo">ActivityTakePhoto</string>
     <string name="title_kondisi">Condition</string>
     <string name="txtJudulTA">Title Of Essay</string>
-    <string name="txtKomentar">Please Comment..</string>
+    <string name="txtKomentar">Add a comment..</string>
     <string name="txtCopyrightAplikasi">© Juny 2015 - Rizki Yuniardi All rights reserved</string>
     <string name="subtitle_universitas_ket">University :</string>
     <string name="txtUniversitas">17 Agustus 1945 Surabaya (UNTAG)</string>
@@ -84,7 +84,7 @@ to road users which can be accessed through a mobile phone / smartphone based on
     <string name="txtNegara">Country</string>
     <string name="txtNamaNegara">Waiting Country..</string>
     <string name="txtMacet">Jammed</string>
-    <string name="txtRamaiLancar">Current Crowded</string>
+    <string name="txtRamaiLancar">Crowded Smoothly</string>
     <string name="txtLancar">Smooth</string>
     <string name="txtKecelakaan">Accident</string>
     <string name="subtitle_email_ket">Email :</string>
@@ -93,12 +93,24 @@ to road users which can be accessed through a mobile phone / smartphone based on
     <string name="title_activity_activity_info_traffic_maps_detail">ActivityInfoTrafficMapsDetail
     </string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="title_waktu">Time</string>
     <string name="subtitle_waktu_ket">Waiting Time..</string>
     <string name="title_lokasi">Location</string>
     <string name="subtitle_lokasi_lat">Lat :</string>
     <string name="title_komentar">Comment</string>
     <string name="subtitle_komentar">Waiting Comment..</string>
+    <string name="refresh">REFRESH</string>
+    <string name="location_not_load">My Location Not Loaded...</string>
+    <string name="title_activity_upload">Please Wait..</string>
+    <string name="txtVideo">Video</string>
+    <string name="txtCamera">Camera</string>
+    <string name="txtGallery">Gallery</string>
+    <string name="txtNamaJalanCari">Search for roads..</string>
+    <string name="txtTanggalCari">Date</string>
+    <string name="txtDateShow">Search date</string>
+    <string name="txtConditionShow">Search condition</string>
+    <string name="txtDate">Click here to select date</string>
+    <string name="txtNamaKotaCari">Search for city..</string>
+    <string name="txtCityShow">Search city</string>
 
 </resources>

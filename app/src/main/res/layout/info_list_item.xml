@@ -1,72 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardlist_item"
+
+<com.andexert.library.RippleView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="2dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:layout_marginTop="2dp"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:orientation="vertical"
-    card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="@dimen/cardview_default_elevation">
+    app:rv_type="rectangle"
+    app:rv_zoom="true"
+    app:rv_color="@color/colorInfoSecondaryText">
 
-    <RelativeLayout
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardlist_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="2dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/size_vertical"
-        android:paddingLeft="@dimen/size_vertical"
-        android:paddingRight="@dimen/size_vertical"
-        android:paddingTop="@dimen/size_vertical">
+        app:cardCornerRadius="4dp"
+        app:cardElevation="@dimen/cardview_default_elevation">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/foto_info_item"
-            android:layout_width="@dimen/list_item_avatar_size"
-            android:layout_height="@dimen/list_item_avatar_size"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="@dimen/size_vertical"
-            android:layout_marginEnd="@dimen/size_vertical"
-            android:src="@drawable/cheese_1"/>
-
-        <TextView
-            android:id="@+id/nama_jalan_item"
-            android:text="Jalan Rokan Surabaya"
-            android:layout_width="wrap_content"
+        <!--<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cardlist_item"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/foto_info_item"
-            android:layout_toEndOf="@+id/foto_info_item"
-            android:textColor="@color/colorInfoPrimaryText"
-            android:textSize="@dimen/size_text_primary" />
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="vertical"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="@dimen/cardview_default_elevation">-->
 
-        <TextView
-            android:id="@+id/waktu_item"
-            android:text="2015-06-11 23:17:05"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/nama_jalan_item"
-            android:layout_toRightOf="@+id/foto_info_item"
-            android:layout_toEndOf="@+id/foto_info_item"
-            android:textColor="@color/colorInfoSecondaryText"
-            android:textSize="@dimen/size_text_secondary" />
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/size_vertical"
+            android:paddingLeft="@dimen/size_vertical"
+            android:paddingRight="@dimen/size_vertical"
+            android:paddingTop="@dimen/size_vertical">
 
-        <TextView
-            android:id="@+id/kondisi_item"
-            android:text="Ramai Lancar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/foto_info_item"
-            android:layout_toEndOf="@+id/foto_info_item"
-            android:layout_below="@+id/waktu_item"
-            android:textColor="@color/colorInfoThirdText"
-            android:textSize="@dimen/size_text_secondary"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/foto_info_item"
+                android:layout_width="@dimen/list_item_avatar_size"
+                android:layout_height="@dimen/list_item_avatar_size"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="@dimen/size_vertical"
+                android:layout_marginRight="@dimen/size_vertical"
+                android:src="@drawable/cheese_1" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/nama_jalan_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/foto_info_item"
+                android:layout_toRightOf="@+id/foto_info_item"
+                android:text="Jalan Rokan Surabaya"
+                android:textColor="@color/colorInfoPrimaryText"
+                android:textSize="@dimen/size_text_primary" />
 
-</android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/waktu_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nama_jalan_item"
+                android:layout_toEndOf="@+id/foto_info_item"
+                android:layout_toRightOf="@+id/foto_info_item"
+                android:text="2015-06-11 23:17:05"
+                android:textColor="@color/colorInfoSecondaryText"
+                android:textSize="@dimen/size_text_secondary" />
+
+            <TextView
+                android:id="@+id/kondisi_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/waktu_item"
+                android:layout_toEndOf="@+id/foto_info_item"
+                android:layout_toRightOf="@+id/foto_info_item"
+                android:text="Ramai Lancar"
+                android:textColor="@color/colorInfoThirdText"
+                android:textSize="@dimen/size_text_secondary" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</com.andexert.library.RippleView>

@@ -18,6 +18,7 @@
 
     <!-- Permission Google Maps Android API v2 -->
     <uses-permission android:name="com.qferiz.trafficjam.permission.MAPS_RECEIVE" />
+    <!--<uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE" />-->
     <uses-permission android:name="ANDROID.PERMISSION.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -98,6 +99,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.qferiz.trafficjam.activity.ActivityMain" />
+        </activity>
+        <activity
+            android:name=".activity.ActivityUpload"
+            android:label="@string/title_activity_upload">
         </activity>
     </application>
 

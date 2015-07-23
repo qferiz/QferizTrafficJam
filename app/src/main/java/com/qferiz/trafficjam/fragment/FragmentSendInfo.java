@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
@@ -21,6 +22,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,14 +32,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qferiz.trafficjam.R;
+import com.qferiz.trafficjam.activity.ActivityUpload;
 import com.qferiz.trafficjam.extras.UrlEndpoints;
 import com.qferiz.trafficjam.logging.L;
 import com.qferiz.trafficjam.utils.Utils;
@@ -50,6 +56,8 @@ import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.codetail.animation.SupportAnimator;
+import io.codetail.animation.ViewAnimationUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,18 +76,23 @@ public class FragmentSendInfo extends Fragment {
 
     // Camera activity request codes
     private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
-    private static final int CAMERA_CAPTURE_VIDEO_REQUEST_CODE = 200;
-    private static final int PICK_IMAGE_FROM_FILE = 300;
+    private static final int PICK_IMAGE_FROM_GALLERY = 200;
+    private static final int CAMERA_CAPTURE_VIDEO_REQUEST_CODE = 300;
 
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
 
-    private Uri mFileUri; // file url to store image/video
+    // Required for camera operations in order to save the image file on resume.
+    private Uri mFileUri = null; // file url to store image/video
+    private String mPath = null;
+
+    // Storage for camera image URI components
     private static final String FILE_URI_CAPTURE = "file_uri";
-    private String mPath;
+    private static final String CAPTURED_PHOTO_PATH_KEY = "path_photo";
     private Bitmap mBitmap = null;
 
     public Context mContext;
+    private Bundle mBundle;
     private Spinner mSpinnerKondisi;
     //    private Spinner mSpinnerWilayah;
     private View mView;
@@ -102,20 +115,24 @@ public class FragmentSendInfo extends Fragment {
     public static final String EXTRA_PROPINSI = "send_propinsi";
     public static final String EXTRA_NEGARA = "send_negara";
 
+    private LinearLayout mRevealView;
+    private boolean mHidden = true;
+    private ImageButton mImgBtnCamera, mImgBtnGallery, mImgBtnVideo, mImgBtnCancel;
+    private SupportAnimator mAnimator, mAnimator_reverse;
+
 
     public FragmentSendInfo() {
         // Required empty public constructor
     }
 
-   /* public static FragmentSendInfo newInstance() {
+    public static FragmentSendInfo newInstance() {
 
-        *//*Bundle args = new Bundle();
+        Bundle args = new Bundle();
 
         FragmentSendInfo fragment = new FragmentSendInfo();
         fragment.setArguments(args);
-        return fragment;*//*
-        return new FragmentSendInfo();
-    }*/
+        return fragment;
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -152,6 +169,7 @@ public class FragmentSendInfo extends Fragment {
             // jika device HP/tablet tidak mempunyai kamera maka CircleImage akan menghilang
             mCircleImageView.setVisibility(View.GONE);
         }
+
         // Setting Location Manager
 //        setupLocationManager();
     }
@@ -162,18 +180,23 @@ public class FragmentSendInfo extends Fragment {
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
+/*        if (mPath != null){
+            outState.putString(CAPTURED_PHOTO_PATH_KEY, mPath);
+        }
+
+        if (mFileUri != null){
+            outState.putString(FILE_URI_CAPTURE, mFileUri.toString());
+        }*/
+        if (outState != null) {
+            if (mFileUri != null) {
+                outState.putParcelable(FILE_URI_CAPTURE, mFileUri);
+//                outState.putString(FILE_URI_CAPTURE, mFileUri.toString());
+            }
+        }
         super.onSaveInstanceState(outState);
         // save file url in bundle as it will be null on screen orientation
         // changes
-        outState.putParcelable(FILE_URI_CAPTURE, mFileUri);
 
-      /*  outState.putString(EXTRA_LATITUDE, getExtraLatitude);
-        outState.putString(EXTRA_LONGITUDE, getExtraLongitude);
-        outState.putString(EXTRA_NAMA_JALAN, getExtraNamaJalan);
-        outState.putString(EXTRA_NAMA_KECAMATAN, getExtraNamaKecamatan);
-        outState.putString(EXTRA_KOTA, getExtraKota);
-        outState.putString(EXTRA_PROPINSI, getExtraPropinsi);
-        outState.putString(EXTRA_NEGARA, getExtraNegara);*/
     }
 
     /**
@@ -181,12 +204,28 @@ public class FragmentSendInfo extends Fragment {
      */
     @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
+     /*   if (mPath != null) {
+            if (savedInstanceState.containsKey(CAPTURED_PHOTO_PATH_KEY)) {
+                mPath = savedInstanceState.getString(CAPTURED_PHOTO_PATH_KEY);
+            }
+        }
+
+        if (mFileUri != null){
+            if (savedInstanceState.containsKey(FILE_URI_CAPTURE)){
+                mFileUri = Uri.parse(savedInstanceState.getString(FILE_URI_CAPTURE));
+            }
+        }*/
 
         if (savedInstanceState != null) {
-            // get the file url
-            mFileUri = savedInstanceState.getParcelable(FILE_URI_CAPTURE);
+            if (mFileUri != null) {
+                // get the file url
+                mFileUri = savedInstanceState.getParcelable(FILE_URI_CAPTURE);
+//                mFileUri = Uri.parse(savedInstanceState.getString(FILE_URI_CAPTURE));
+            }
         }
+
+        super.onViewStateRestored(savedInstanceState);
+
     }
 
     /**
@@ -203,15 +242,30 @@ public class FragmentSendInfo extends Fragment {
                     // successfully captured the image
                     // launching upload activity
 //                launchUploadActivity(true);
-                    mPath = mFileUri.getPath();
+//                    mPath = mFileUri.getPath();
+//                    L.T(getActivity(), "Path foto sebelum : " + mPath + "File URI : " + mFileUri);
+//                    Bundle extras = data.getExtras();
+
+                    if (mPath == null) {
+                        mPath = mFileUri.getPath(); // FROM FILE MANAGER
+//                        mPath = extras.getString(MediaStore.EXTRA_OUTPUT);
+                    }
+
+                    if (mPath != null) {
+                        // Downsizing image as resolution 250 x 250 pixel
+                        mCircleImageView.setImageBitmap(Utils.lessResolution(mPath, 250, 250));
+                    }
+
+                    L.T(getActivity(), "Path foto sesudah : " + mPath + "\n\n File URI : " + mFileUri);
 
                     // Downsizing image as resolution 250 x 250 pixel
-                    mCircleImageView.setImageBitmap(Utils.lessResolution(mPath, 250, 250));
+//                    mCircleImageView.setImageBitmap(Utils.lessResolution(mPath, 250, 250));
 
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
-
+                // Tampilkan ImageButton Cancel
+                cancelImage(true);
 
             } else if (resultCode == AppCompatActivity.RESULT_CANCELED) {
 
@@ -226,6 +280,45 @@ public class FragmentSendInfo extends Fragment {
                         "Sorry! Failed to capture image", Toast.LENGTH_SHORT)
                         .show();
             }
+        }
+        // IF TAKE PICTURE FROM GALLERY
+        else if (requestCode == PICK_IMAGE_FROM_GALLERY) {
+            if (resultCode == AppCompatActivity.RESULT_OK) {
+                try {
+                    mFileUri = data.getData();
+                    mPath = getRealPathFromURI(mFileUri); // FROM GALLERY
+
+                    if (mPath == null) {
+                        mPath = mFileUri.getPath(); // FROM FILE MANAGER
+                    }
+
+                    if (mPath != null) {
+                        // Downsizing image as resolution 250 x 250 pixel
+                        mCircleImageView.setImageBitmap(Utils.lessResolution(mPath, 250, 250));
+                    }
+
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+
+                // Tampilkan ImageButton Cancel
+                cancelImage(true);
+
+            } else if (resultCode == AppCompatActivity.RESULT_CANCELED) {
+
+                // user cancelled Image capture
+                Toast.makeText(getActivity(),
+                        "User cancelled image capture", Toast.LENGTH_SHORT)
+                        .show();
+
+            } else {
+                // failed to capture image
+                Toast.makeText(getActivity(),
+                        "Sorry! Failed to capture image", Toast.LENGTH_SHORT)
+                        .show();
+            }
+
+
         }
 
       /*  else if (requestCode == CAMERA_CAPTURE_VIDEO_REQUEST_CODE) {
@@ -264,6 +357,10 @@ public class FragmentSendInfo extends Fragment {
             readData();
         }*/
 
+        // Layout Reveal Animation Hidden by first Call
+        mRevealView = (LinearLayout) mView.findViewById(R.id.reveal_items);
+        mRevealView.setVisibility(View.INVISIBLE);
+
         if (mMenu != null) {
             mMenu.findItem(R.id.my_location).setVisible(false);
         }
@@ -301,9 +398,27 @@ public class FragmentSendInfo extends Fragment {
         mCircleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                L.t(getActivity(), "Tes Upload Foto...");
-                // capture picture
+                pickPicture();
+            }
+        });
+
+        // Take Picture From Camera
+        mImgBtnCamera = (ImageButton) mView.findViewById(R.id.imgBtnCamera);
+        mImgBtnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 captureImage();
+                mCircleImageView.performClick();
+            }
+        });
+
+        // Take Picture From Gallery
+        mImgBtnGallery = (ImageButton) mView.findViewById(R.id.imgBtnGallery);
+        mImgBtnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectImageFromGallery();
+                mCircleImageView.performClick();
             }
         });
 
@@ -311,14 +426,17 @@ public class FragmentSendInfo extends Fragment {
         mFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                L.t(getActivity(), "Tes Sending...");
-//                Snackbar.make(mView, "Direction", Snackbar.LENGTH_LONG)
-//                .setAction("GO", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        L.t(getActivity(), "Direction Maps");
-//                    }
-//                }).show();
+                // successfully captured the image
+                // launching upload activity
+                uploadFile(true);
+//                L.t(getActivity(), "Tes Sending...");
+/*                Snackbar.make(mView, getResources().getString(R.string.location_not_load), Snackbar.LENGTH_LONG)
+                .setAction(getResources().getString(R.string.refresh), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        L.t(getActivity(), "REFRESH LOCATION");
+                    }
+                }).show();*/
             }
         });
 
@@ -327,7 +445,7 @@ public class FragmentSendInfo extends Fragment {
     }
 
     /**
-     * Capturing Camera Image will lauch camera app requrest image capture
+     * Capturing Camera Image will launch camera app requrest image capture
      */
     private void captureImage() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -338,6 +456,19 @@ public class FragmentSendInfo extends Fragment {
         // start the image capture Intent
         startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
     }
+
+    /**
+     * Opens dialog picker, so the user can select image from the gallery. The
+     * result is returned in the method <code>onActivityResult()</code>
+     */
+    public void selectImageFromGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"),
+                PICK_IMAGE_FROM_GALLERY);
+    }
+
 
     /**
      * Launching camera app to record video
@@ -434,10 +565,24 @@ public class FragmentSendInfo extends Fragment {
 
     @Override
     public void onResume() {
-        super.onResume();
+
         mReceiver = new MyReceiver();
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mReceiver,
                 new IntentFilter(TAG_REFRESH));
+
+        if (mBundle != null) {
+            if (mFileUri != null) {
+                mFileUri = mBundle.getParcelable(FILE_URI_CAPTURE);
+            }
+//            if (mBundle.containsKey(CAPTURED_PHOTO_PATH_KEY)){
+//                mPath = mBundle.getString(CAPTURED_PHOTO_PATH_KEY);
+//            }
+//
+//            if (mBundle.containsKey(FILE_URI_CAPTURE)){
+//                mFileUri = Uri.parse(mBundle.getString(FILE_URI_CAPTURE));
+//            }
+        }
+        super.onResume();
     }
 
     @Override
@@ -757,6 +902,85 @@ public class FragmentSendInfo extends Fragment {
         }
     }
 
+    private void uploadFile(Boolean mediaType) {
+        // IF mediaType = true (upload Image file)
+        // IF mediaType = false (uploade Video file)
+        Intent mIntent = new Intent(getActivity(), ActivityUpload.class);
+        mIntent.putExtra(ActivityUpload.EXTRA_FILE_PATH, mPath);
+        mIntent.putExtra(ActivityUpload.EXTRA_MEDIA_TYPE, mediaType);
+        startActivity(mIntent);
+
+    }
+
+    private void cancelImage(boolean result) {
+        if (result) {
+            mImgBtnCancel = (ImageButton) mView.findViewById(R.id.imgBtnCancel);
+            mImgBtnCancel.setVisibility(View.VISIBLE);
+            mImgBtnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPath = null;
+                    mFileUri = null;
+                    mCircleImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.empty_photo_entry));
+                    mImgBtnCancel.setVisibility(View.INVISIBLE);
+                }
+            });
+
+        }
+
+    }
+
+
+    /**
+     * Pict  image/video From Camera or Gallery with Animation
+     */
+    private void pickPicture() {
+        int cx = (mRevealView.getLeft() + mRevealView.getRight());
+        int cy = mRevealView.getTop();
+
+        int radius = Math.max(mRevealView.getWidth(), mRevealView.getHeight());
+
+        mAnimator =
+                ViewAnimationUtils.createCircularReveal(mRevealView, cx, cy, 0, radius);
+        mAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+        mAnimator.setDuration(600);
+
+        mAnimator_reverse = mAnimator.reverse();
+        mAnimator_reverse.setDuration(200);
+
+        if (mHidden) { // Jika TRUE Maka Tampilkan Layout Pick Picture
+            mRevealView.setVisibility(View.VISIBLE);
+            mAnimator.start();
+            mHidden = false;
+        } else {
+            mAnimator_reverse.addListener(new SupportAnimator.AnimatorListener() {
+                @Override
+                public void onAnimationStart() {
+
+                }
+
+                @Override
+                public void onAnimationEnd() {
+                    mRevealView.setVisibility(View.INVISIBLE);
+                    mHidden = true;
+                }
+
+                @Override
+                public void onAnimationCancel() {
+
+                }
+
+                @Override
+                public void onAnimationRepeat() {
+
+                }
+            });
+
+            mAnimator_reverse.start();
+        }
+
+    }
+
     /**
      * ------------ Helper Methods ----------------------
      * */
@@ -803,5 +1027,19 @@ public class FragmentSendInfo extends Fragment {
         }
 
         return mediaFile;
+    }
+
+    public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getActivity().getContentResolver().query(contentUri, proj, null, null, null);
+
+        if (cursor == null) return null;
+
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String mCurColumn = cursor.getString(column_index);
+        cursor.close();
+//        return cursor.getString(column_index);
+        return mCurColumn;
     }
 }

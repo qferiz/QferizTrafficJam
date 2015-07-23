@@ -40,7 +40,7 @@
     <string name="txtJalan">Jalan</string>
     <string name="txtJudulTA">Judul Tugas Akhir</string>
     <string name="txtJurusan">Informatika</string>
-    <string name="txtKomentar">Silakan Komentar..</string>
+    <string name="txtKomentar">Tambahkan komentar..</string>
     <string name="txtKondisi">Kondisi</string>
     <string name="txtLatitude">Menunggu Latitude..</string>
     <string name="txtLokasi">Lokasi</string>
@@ -86,4 +86,17 @@
     <string name="title_komentar">Komentar</string>
     <string name="subtitle_komentar">Menunggu Komentar..</string>
     <string name="title_activity_activity_info_traffic_maps_detail">ActivityInfoTrafficMapsDetail</string>
+    <string name="location_not_load">Lokasi Anda Tidak Terdeteksi...</string>
+    <string name="refresh">REFRESH</string>
+    <string name="txtVideo">Video</string>
+    <string name="title_activity_upload">Mohon Menunggu..</string>
+    <string name="txtGallery">Galeri</string>
+    <string name="txtCamera">Kamera</string>
+    <string name="txtNamaJalanCari">Cari nama jalan..</string>
+    <string name="txtTanggalCari">Tanggal</string>
+    <string name="txtDateShow">Cari tanggal</string>
+    <string name="txtConditionShow">Cari kondisi</string>
+    <string name="txtDate">Klik di sini untuk memilih tanggal</string>
+    <string name="txtNamaKotaCari">Cari kota..</string>
+    <string name="txtCityShow">Cari kota</string>
 </resources>

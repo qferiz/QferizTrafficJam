@@ -100,6 +100,7 @@ public class TrafficJamDB {
                 listTraffic.add(mTrafficJam);
 
             } while (mCursor.moveToNext());
+            mCursor.close();
         }
 
         return listTraffic;

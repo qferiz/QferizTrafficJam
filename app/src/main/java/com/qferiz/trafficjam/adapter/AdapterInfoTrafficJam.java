@@ -146,11 +146,11 @@ public class AdapterInfoTrafficJam extends RecyclerView.Adapter<AdapterInfoTraff
 //            mCardItemLayout.setOnClickListener(this);
         }
 
-        @Override
+      /*  @Override
         public String toString() {
             return super.toString() + " '" + mNamaJalan.getText();
         }
-
+*/
         //        @Override
 //        public void onClick(View view) {
 //            mClickListener.onItemClick(view, getAdapterPosition());

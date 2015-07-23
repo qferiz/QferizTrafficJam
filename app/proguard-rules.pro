@@ -16,3 +16,8 @@
 #   public *;
 #}
 -keep class com.bumptech.glide.integration.volley.VolleyGlideModule
+-keepclassmembers class * implements android.os.Parcelable {
+    static ** CREATOR;
+}
+#-keep class org.apache.http.** { ; }
+#-dontwarn org.apache.http.*

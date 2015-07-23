@@ -71,6 +71,7 @@ public class FragmentInfoTrafficList extends Fragment implements InfoTrafficJamL
 
         if (savedInstanceState != null) {
             //if this fragment starts after a rotation or configuration change, load the existing traffic from a parcelable
+            savedInstanceState.setClassLoader(getClass().getClassLoader());
             mListTraffic = savedInstanceState.getParcelableArrayList(STATE_INFO_TRAFFIC_JAM);
         } else {
             //if this fragment starts for the first time, load the list of movies from a database

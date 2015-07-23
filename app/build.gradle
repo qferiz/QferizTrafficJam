@@ -18,6 +18,28 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+
+        /*  exclude 'META-INF/DEPENDENCIES.txt'
+          exclude 'META-INF/LICENSE.txt'
+          exclude 'META-INF/NOTICE.txt'
+          exclude 'META-INF/NOTICE'
+          exclude 'META-INF/LICENSE'
+          exclude 'META-INF/DEPENDENCIES'
+          exclude 'META-INF/notice.txt'
+          exclude 'META-INF/license.txt'
+          exclude 'META-INF/dependencies.txt'
+          exclude 'META-INF/LGPL2.1'*/
+    }
+}
+
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 dependencies {
@@ -28,10 +50,39 @@ dependencies {
     compile 'com.android.support:cardview-v7:22.2.1'
     compile 'com.android.support:recyclerview-v7:22.2.1'
     compile 'com.google.android.gms:play-services:7.5.0'
+
     // Library on Github
-    //    compile 'br.com.liveo:navigationdrawer-material:2.3.2'
     //    compile 'com.github.bumptech.glide:glide:3.6.0'
+
+    // Fetching Image with Glide + Volley (Google IO 2013)
     compile 'com.github.bumptech.glide:volley-integration:1.3.0'
+
+    // Circle Image View
     compile 'de.hdodenhof:circleimageview:1.3.0'
+
+    // SuperRecyclerView
+    compile 'com.malinskiy:superrecyclerview:1.1.0'
+
+    // Bottom Sheet
+    compile 'com.cocosw:bottomsheet:1.+@aar'
+
+    // Rippleeffect
+    compile 'com.github.traex.rippleeffect:library:1.3'
+
+    // Transitions
+    compile "com.github.andkulikov:transitions-everywhere:1.4.0"
+
+    // Floating Action Button with FloatActionMenu
+    compile 'com.getbase:floatingactionbutton:1.10.0'
+
+    // Connection Network by Volley (Google IO 2013)
     compile 'com.mcxiaoke.volley:library:1.0.+'
+
+    // Animatin CircularReveal like WhatsApp Attachment
+    compile 'com.github.ozodrukh:CircularReveal:1.1.0'
+
+    // Material DateTime Picker - Select a time/date in style
+    compile 'com.wdullaer:materialdatetimepicker:1.4.2'
+
+
 }

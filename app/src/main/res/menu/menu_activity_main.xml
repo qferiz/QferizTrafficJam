@@ -16,10 +16,12 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/ActivityTakePhoto"
-        android:orderInCategory="30"
-        android:title="@string/take_photo"
-        app:showAsAction="never" />
+    <!--
+        <item
+            android:id="@+id/ActivityTakePhoto"
+            android:orderInCategory="30"
+            android:title="@string/take_photo"
+            app:showAsAction="never" />
+    -->
 
 </menu>
